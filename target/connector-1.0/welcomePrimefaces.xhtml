@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+
+
+
+
+                <p:layoutUnit position="center">
+                    <h:form id="dd" prependId="false">
+                        <p:growl autoUpdate="true" showDetail="true"/>
+                        <div style="display: none">
+                            <p:inputText value="#{conexion.url}" placeholder="URL"/><br/>
+                            <p:inputText value="#{conexion.user}" placeholder="USER"/><br/>
+                            <p:inputText value="#{conexion.password}" placeholder="PASS"/><br/>
+
+
+
+                            <p:commandButton update="idvalor" value="SUBMIT" actionListener="#{conexion.boton}"/>
+
+
+                            <p:outputLabel id="idvalor" value="#{conexion.mensaje}"/>
+
+                            <br/><br/>
+                            <p:inputText value="#{conexion.destino}" placeholder="DESTINO"/><br/>
+                            <p:inputText value="#{conexion.texto}" placeholder="texto "/> <br/>
+                            <p:commandButton actionListener="#{conexion.enviarMail}" value="Enviar Mail"/>
+                        </div>
+                        <br/>
+
+
+                        <p:panelGrid columns="2">
+                            <h:outputText value="Interleaved 2 of 5" />
+                            <p:barcode value="0123456789" type="int2of5" />
+
+                            <h:outputText value="Codabar" />
+                            <p:barcode value="0123456789" type="codabar"/>
+
+                            <h:outputText value="Code39" />
+                            <p:barcode value="0123456789" type="code39" />
+
+                            <h:outputText value="Code128" />
+                            <p:barcode value="0123456789" type="code128"/>
+
+                            <h:outputText value="EAN-8" />
+                            <p:barcode value="20123451" type="ean8"/>
+
+                            <h:outputText value="EAN-13" />
+                            <p:barcode value="0123456789012" type="ean13"/>
+
+                            <h:outputText value="UPC-A (PNG)" />
+                            <p:barcode value="01234567895" type="upca" format="png"/>
+
+                            <h:outputText value="UPC-E (Vertical)" />
+                            <p:barcode value="01234133" type="upce" orientation="90"/>
+
+                            <h:outputText value="PDF417" />
+                            <p:barcode value="0123456789" type="pdf417"/>
+
+                            <h:outputText value="DataMatrix" />
+                            <p:barcode value="0123456789" type="datamatrix"/>
+
+                            <h:outputText value="Postnet" />
+                            <p:barcode value="0123456789" type="postnet"/>
+
+                            <h:outputText value="QR" />
+                            <p:barcode value="0123456789" type="qr"/>
+                        </p:panelGrid>
+
+
+                    </h:form>
+
+
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

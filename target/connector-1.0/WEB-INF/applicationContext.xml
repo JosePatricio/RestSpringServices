@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/mvc                                   http://www.springframework.org/schema/mvc/spring-mvc.xsd                                  http://www.springframework.org/schema/beans                                      http://www.springframework.org/schema/beans/spring-beans.xsd                                  http://www.springframework.org/schema/context                                   http://www.springframework.org/schema/context/spring-context.xsd                                  http://www.springframework.org/schema/tx                                   http://www.springframework.org/schema/tx/spring-tx.xsd                                  http://www.springframework.org/schema/security                                  http://www.springframework.org/schema/security/spring-security.xsd">
+    
+    
+    
+    
+    
+
+    <!-- DispatcherServlet Context: defines this servlet's request-processing 
+    infrastructure -->
+
+    <!-- Enables the Spring MVC @Controller programming model -->
+    <annotation-driven/>
+    
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+    up static resources in the ${webappRoot}/resources directory -->
+    <resources location="/resources/" mapping="/resources/**"/>
+        
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <beans:bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+        <beans:property name="driverClassName" value="${database.driver}"/>
+        <beans:property name="url" value="${database.url}"/>
+        <beans:property name="username" value="${database.user}"/>
+        <beans:property name="password" value="${database.password}"/>
+    </beans:bean>
+
+    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <beans:bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" id="hibernate4AnnotatedSessionFactory">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="packagesToScan" value="com.innovaciones.reporte.model"/>
+        <beans:property name="annotatedClasses">
+            <beans:list>
+                <beans:value>com.innovaciones.reporte.model.AsignacionReparacion</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Bodega</beans:value>
+                <beans:value>com.innovaciones.reporte.model.CabeceraCatalogoReporte</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Categoria</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Cliente</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Configuracion</beans:value>
+                <beans:value>com.innovaciones.reporte.model.CabeceraInventario</beans:value>
+                <beans:value>com.innovaciones.reporte.model.CabeceraEgreso</beans:value>
+                <beans:value>com.innovaciones.reporte.model.DetalleCatalogoReporte</beans:value>
+                <beans:value>com.innovaciones.reporte.model.DetalleInventario</beans:value>
+                <beans:value>com.innovaciones.reporte.model.DetalleEgreso</beans:value>
+                <beans:value>com.innovaciones.reporte.model.DetalleEgresoInventario</beans:value>
+                <beans:value>com.innovaciones.reporte.model.DetalleInventarioProducto</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Marca</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Modelo</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Producto</beans:value>
+                <beans:value>com.innovaciones.reporte.model.ProductoModelo</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Marca</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Modelo</beans:value>
+                <beans:value>com.innovaciones.reporte.model.ProductoClienteReporte</beans:value>
+                <beans:value>com.innovaciones.reporte.model.ProductoDetalleReporte</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Reporte</beans:value>
+                <beans:value>com.innovaciones.reporte.model.ReporteMantenimiento</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Rol</beans:value>
+                <beans:value>com.innovaciones.reporte.model.TipoVisita</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Usuarios</beans:value>
+                <beans:value>com.innovaciones.reporte.model.UsuarioRoles</beans:value>
+                <beans:value>com.innovaciones.reporte.model.DetalleReporteInstalacionNueva</beans:value>
+                <beans:value>com.innovaciones.reporte.model.DetalleReporteTemporal</beans:value>
+                <beans:value>com.innovaciones.reporte.model.ClienteSucursal</beans:value>
+                <beans:value>com.innovaciones.reporte.model.ProductoRepuestoReporte</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Proveedor</beans:value>
+                <beans:value>com.innovaciones.reporte.model.TipoCuentaBancaria</beans:value>
+                <beans:value>com.innovaciones.reporte.model.TipoDocumentoProveedor</beans:value>
+                <beans:value>com.innovaciones.reporte.model.TipoProveedor</beans:value>
+                <beans:value>com.innovaciones.reporte.model.TipoProducto</beans:value>
+                <beans:value>com.innovaciones.reporte.model.UnidadMedida</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Parametros</beans:value>
+                <beans:value>com.innovaciones.reporte.model.DetalleReporteEcu911</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Proyectos</beans:value>
+                <beans:value>com.innovaciones.reporte.model.GarantiaCondMedida</beans:value>
+                <beans:value>com.innovaciones.reporte.model.Garantia</beans:value>
+                <beans:value>com.innovaciones.reporte.model.GarantiaDetalle</beans:value>
+                <beans:value>com.innovaciones.reporte.model.GarantiaCondicion</beans:value>
+                <beans:value>com.innovaciones.reporte.model.UbicacionProductoBodega</beans:value>
+                <beans:value>com.innovaciones.reporte.model.GarantiaAsignada</beans:value>
+
+            </beans:list>
+        </beans:property>
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
+                <beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
+                <beans:prop key="hibernate.connection.zeroDateTimeBehavior">convertToNull</beans:prop>                                               
+                <beans:prop key="hibernate.min_size">10</beans:prop>
+                <beans:prop key="hibernate.max_size">100</beans:prop>
+                <beans:prop key="hibernate.timeout">30</beans:prop>
+                <beans:prop key="hibernate.max_statements">50</beans:prop>
+                <beans:prop key="hibernate.max_statements">50</beans:prop>
+             
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean class="com.innovaciones.reporte.dao.AsignacionReparacionDAOImpl" id="asignacionReparacionDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.AsignacionReparacionServiceImpl" id="asignacionReparacionService">
+        <beans:property name="asignacionReparacionDAO" ref="asignacionReparacionDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.BodegaDAOImpl" id="bodegaDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.BodegaServiceImpl" id="bodegaService">
+        <beans:property name="bodegaDAO" ref="bodegaDAO"/>
+    </beans:bean>
+    
+
+    <beans:bean class="com.innovaciones.reporte.dao.UsuariosDAOImpl" id="usuariosDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.UsuariosServiceImpl" id="usuariosService">
+        <beans:property name="usuariosDAO" ref="usuariosDAO"/>
+    </beans:bean>
+     
+    <beans:bean class="com.innovaciones.reporte.dao.CabeceraCatalogoReporteDAOImpl" id="cabeceraCatalogoReporteDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.CabeceraCatalogoReporteServiceImpl" id="cabeceraCatalogoReporteService">
+        <beans:property name="cabeceraCatalogoReporteDAO" ref="cabeceraCatalogoReporteDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.CabeceraInventarioDAOImpl" id="cabeceraInventarioDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.CabeceraInventarioServiceImpl" id="cabeceraInventarioService">
+        <beans:property name="cabeceraInventarioDAO" ref="cabeceraInventarioDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.CabeceraEgresoDAOImpl" id="cabeceraEgresoDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.CabeceraEgresoServiceImpl" id="cabeceraEgresoService">
+        <beans:property name="cabeceraEgresoDAO" ref="cabeceraEgresoDAO"/>
+    </beans:bean>    
+    
+    <beans:bean class="com.innovaciones.reporte.dao.CategoriaDAOImpl" id="categoriaDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.CategoriaServiceImpl" id="categoriaService">
+        <beans:property name="categoriaDAO" ref="categoriaDAO"/>
+    </beans:bean>
+      
+    <beans:bean class="com.innovaciones.reporte.dao.ClienteDAOImpl" id="clienteDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ClienteServiceImpl" id="clienteService">
+        <beans:property name="clienteDAO" ref="clienteDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.ConfiguracionDAOImpl" id="configuracionDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ConfiguracionServiceImpl" id="configuracionService">
+        <beans:property name="configuracionDAO" ref="configuracionDAO"/>
+    </beans:bean>
+  
+    <beans:bean class="com.innovaciones.reporte.dao.DetalleCatalogoReporteDAOImpl" id="detalleCatalogoReporteDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DetalleCatalogoReporteServiceImpl" id="detalleCatalogoReporteService">
+        <beans:property name="detalleCatalogoReporteDAO" ref="detalleCatalogoReporteDAO"/>
+    </beans:bean>
+
+    
+    <beans:bean class="com.innovaciones.reporte.dao.DetalleInventarioDAOImpl" id="detalleInventarioDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DetalleInventarioServiceImpl" id="detalleInventarioService">
+        <beans:property name="detalleInventarioDAO" ref="detalleInventarioDAO"/>
+    </beans:bean>
+    
+    
+    <beans:bean class="com.innovaciones.reporte.dao.DetalleEgresoDAOImpl" id="detalleEgresoDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DetalleEgresoServiceImpl" id="detalleEgresoService">
+        <beans:property name="detalleEgresoDAO" ref="detalleEgresoDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.DetalleEgresoInventarioDAOImpl" id="detalleEgresoInventarioDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DetalleEgresoInventarioServiceImpl" id="detalleEgresoInventarioService">
+        <beans:property name="detalleEgresoInventarioDAO" ref="detalleEgresoInventarioDAO"/>
+    </beans:bean>
+    
+    
+    <beans:bean class="com.innovaciones.reporte.dao.DetalleInventarioProductoDAOImpl" id="detalleInventarioProductoDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DetalleInventarioProductoServiceImpl" id="detalleInventarioProductoService">
+        <beans:property name="detalleInventarioProductoDAO" ref="detalleInventarioProductoDAO"/>
+    </beans:bean>
+        
+                
+    <beans:bean class="com.innovaciones.reporte.dao.MarcaDAOImpl" id="marcaDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.MarcaServiceImpl" id="marcaService">
+        <beans:property name="marcaDAO" ref="marcaDAO"/>
+    </beans:bean>  
+    
+    <beans:bean class="com.innovaciones.reporte.dao.ModeloDAOImpl" id="modeloDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ModeloServiceImpl" id="modeloService">
+        <beans:property name="modeloDAO" ref="modeloDAO"/>
+    </beans:bean>
+ 
+    <beans:bean class="com.innovaciones.reporte.dao.ProductoClienteReporteDAOImpl" id="productoClienteReporteDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ProductoClienteReporteServiceImpl" id="productoClienteReporteService">
+        <beans:property name="productoClienteReporteDAO" ref="productoClienteReporteDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.ProductoDAOImpl" id="productoDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ProductoServiceImpl" id="productoService">
+        <beans:property name="productoDAO" ref="productoDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.ProductoModeloDAOImpl" id="productoModeloDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ProductoModeloServiceImpl" id="productoModeloService">
+        <beans:property name="productoModeloDAO" ref="productoModeloDAO"/>
+    </beans:bean>
+  
+    <beans:bean class="com.innovaciones.reporte.dao.ProductoDetalleReporteDAOImpl" id="productoDetalleReporteDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ProductoDetalleReporteServiceImpl" id="productoDetalleReporteService">
+        <beans:property name="productoDetalleReporteDAO" ref="productoDetalleReporteDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.TipoProductoDAOImpl" id="tipoProductoDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.TipoProductoServiceImpl" id="tipoProductoService">
+        <beans:property name="tipoProductoDAO" ref="tipoProductoDAO"/>
+    </beans:bean>
+
+             
+
+    <beans:bean class="com.innovaciones.reporte.dao.ReporteDAOImpl" id="reporteDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    
+    
+
+
+
+    <beans:bean class="com.innovaciones.reporte.service.ReporteServiceImpl" id="reporteService">
+        <beans:property name="reporteDAO" ref="reporteDAO"/>
+        <beans:property name="reporteMantenimientoService" ref="reporteMantenimientoService"/>
+        <beans:property name="productoDetalleReporteService" ref="productoDetalleReporteService"/>
+        <beans:property name="productoClienteReporteService" ref="productoClienteReporteService"/>
+        <beans:property name="asignacionReparacionService" ref="asignacionReparacionService"/>
+        <beans:property name="productoService" ref="productoService"/>
+        <beans:property name="productoRepuestoReporteService" ref="productoRepuestoReporteService"/>
+        <beans:property name="detalleCatalogoReporteService" ref="detalleCatalogoReporteService"/>
+        <beans:property name="detalleReporteInstalacionNuevaService" ref="detalleReporteInstalacionNuevaService"/>
+        <beans:property name="detalleReporteTemporalService" ref="detalleReporteTemporalService"/>
+        <beans:property name="detalleInventarioProductoService" ref="detalleInventarioProductoService"/>
+        <beans:property name="detalleReporteEcu911Service" ref="detalleReporteEcu911Service"/>
+        <beans:property name="clienteService" ref="clienteService"/>
+        <beans:property name="parametrosService" ref="parametrosService"/>
+        <beans:property name="clienteSucursalService" ref="clienteSucursalService"/>
+        <beans:property name="tipoVisitaService" ref="tipoVisitaService"/>
+        <beans:property name="cabeceraCatalogoReporteService" ref="cabeceraCatalogoReporteService"/>
+        
+        
+        <beans:property name="consultasService" ref="consultasService"/>
+       
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.ReporteMantenimientoDAOImpl" id="reporteMantenimientoDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ReporteMantenimientoServiceImpl" id="reporteMantenimientoService">
+        <beans:property name="reporteMantenimientoDAO" ref="reporteMantenimientoDAO"/>
+        <beans:property name="detalleCatalogoReporteService" ref="detalleCatalogoReporteService"/>
+    </beans:bean>
+
+    <beans:bean class="com.innovaciones.reporte.dao.RolDAOImpl" id="rolDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.service.RolServiceImpl" id="rolService">
+        <beans:property name="rolDAO" ref="rolDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.TipoVisitaDAOImpl" id="tipoVisitaDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.service.TipoVisitaServiceImpl" id="tipoVisitaService">
+        <beans:property name="tipoVisitaDAO" ref="tipoVisitaDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.ConsultasDAOImpl" id="consultasDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ConsultasServiceImpl" id="consultasService">
+        <beans:property name="consultasDAO" ref="consultasDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.UsuarioRolesDAOImpl" id="usuarioRolesDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.UsuarioRolesServiceImpl" id="usuarioRolesService">
+        <beans:property name="usuarioRolesDAO" ref="usuarioRolesDAO"/>
+    </beans:bean>
+    
+
+
+    
+ 
+    <beans:bean class="com.innovaciones.reporte.dao.NotificacionDAOImp" id="notificacionDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.NotificacionServiceImpl" id="notificacionService">
+        <beans:property name="notificacionDAO" ref="notificacionDAO"/>
+    </beans:bean>
+    	
+    <beans:bean class="com.innovaciones.reporte.dao.DetalleReporteInstalacionNuevaDAOImpl" id="detalleReporteInstalacionNuevaDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DetalleReporteInstalacionNuevaServiceImpl" id="detalleReporteInstalacionNuevaService">
+        <beans:property name="detalleReporteInstalacionNuevaDAO" ref="detalleReporteInstalacionNuevaDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.DetalleReporteTemporalDAOImpl" id="detalleReporteTemporalDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DetalleReporteTemporalServiceImpl" id="detalleReporteTemporalService">
+        <beans:property name="detalleReporteTemporalDAO" ref="detalleReporteTemporalDAO"/>
+    </beans:bean>
+    
+    <beans:bean class="com.innovaciones.reporte.dao.ClienteSucursalDAOImpl" id="clienteSucursalDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ClienteSucursalServiceImpl" id="clienteSucursalService">
+        <beans:property name="clienteSucursalDAO" ref="clienteSucursalDAO"/>
+    </beans:bean> 
+    
+    <beans:bean class="com.innovaciones.reporte.dao.DashboardDAOImp" id="dashboardDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DashboardServiceImpl" id="dashboardService">
+        <beans:property name="dashboardDAO" ref="dashboardDAO"/>
+    </beans:bean> 
+	
+        
+        
+    <beans:bean class="com.innovaciones.reporte.dao.ProveedorDAOImpl" id="proveedorDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ProveedorServiceImpl" id="proveedorService">
+        <beans:property name="proveedorDAO" ref="proveedorDAO"/>
+    </beans:bean>  
+    
+    <beans:bean class="com.innovaciones.reporte.dao.TipoCuentaBancariaDAOImpl" id="tipoCuentaBancariaDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.TipoCuentaBancariaServiceImpl" id="tipoCuentaBancariaService">
+        <beans:property name="tipoCuentaBancariaDAO" ref="tipoCuentaBancariaDAO"/>
+    </beans:bean>    
+    
+    <beans:bean class="com.innovaciones.reporte.dao.TipoDocumentoProveedorDAOImpl" id="tipoDocumentoProveedorDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.TipoDocumentoProveedorServiceImpl" id="tipoDocumentoProveedorService">
+        <beans:property name="tipoDocumentoProveedorDAO" ref="tipoDocumentoProveedorDAO"/>
+    </beans:bean> 
+    
+    <beans:bean class="com.innovaciones.reporte.dao.TipoProveedorDAOImpl" id="tipoProveedorDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.TipoProveedorServiceImpl" id="tipoProveedorService">
+        <beans:property name="tipoProveedorDAO" ref="tipoProveedorDAO"/>
+    </beans:bean> 
+    
+    <beans:bean class="com.innovaciones.reporte.dao.ProductoRepuestoReporteDAOImpl" id="productoRepuestoReporteDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ProductoRepuestoReporteServiceImpl" id="productoRepuestoReporteService">
+        <beans:property name="productoRepuestoReporteDAO" ref="productoRepuestoReporteDAO"/>
+        <beans:property name="detalleInventarioProductoService" ref="detalleInventarioProductoService"/>
+    </beans:bean> 
+        
+    <beans:bean class="com.innovaciones.reporte.dao.UnidadMedidaDAOImpl" id="unidadMedidaDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.UnidadMedidaServiceImpl" id="unidadMedidaService">
+        <beans:property name="unidadMedidaDAO" ref="unidadMedidaDAO"/>
+    </beans:bean>
+
+    <beans:bean class="com.innovaciones.reporte.dao.ParametrosDAOImpl" id="parametrosDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ParametrosServiceImpl" id="parametrosService">
+        <beans:property name="parametrosDAO" ref="parametrosDAO"/>
+    </beans:bean>        
+        
+    <beans:bean class="com.innovaciones.reporte.dao.DetalleReporteEcu911DAOImpl" id="detalleReporteEcu911DAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.DetalleReporteEcu911ServiceImpl" id="detalleReporteEcu911Service">
+        <beans:property name="detalleReporteEcu911DAO" ref="detalleReporteEcu911DAO"/>
+    </beans:bean>  
+        
+       
+    <beans:bean class="com.innovaciones.reporte.dao.ProyectosDAOImpl" id="proyectosDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ProyectosServiceImpl" id="proyectosService">
+        <beans:property name="proyectosDAO" ref="proyectosDAO"/>
+        <beans:property name="usuariosService" ref="usuariosService"/>
+    </beans:bean> 
+
+    <beans:bean class="com.innovaciones.reporte.dao.UbicacionProductoBodegaDAOImpl" id="ubicacionProductoBodegaDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.UbicacionProductoBodegaServiceImpl" id="ubicacionProductoBodegaService">
+        <beans:property name="ubicacionProductoBodegaDAO" ref="ubicacionProductoBodegaDAO"/>
+    </beans:bean>
+
+
+    <context:component-scan base-package="com.innovaciones.reporte"/>
+
+        
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <beans:bean class="org.springframework.orm.hibernate4.HibernateTransactionManager" id="transactionManager">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+
+</beans:beans>
