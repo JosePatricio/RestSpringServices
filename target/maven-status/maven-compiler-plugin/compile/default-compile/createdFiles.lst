@@ -52,6 +52,7 @@ com\innovaciones\reporte\dao\DetalleInventarioProductoDAOImpl.class
 com\innovaciones\reporte\dao\DetalleCicloDAOImpl.class
 com\innovaciones\reporte\service\ClienteSucursalService.class
 com\innovaciones\reporte\service\DetalleReporteEcu911Service.class
+com\innovaciones\reporte\util\clasemain.class
 com\innovaciones\reporte\model\GarantiaCondMedida.class
 com\innovaciones\reporte\serviceRest\ConsultasServiceRest.class
 com\innovaciones\reporte\service\CabeceraCatalogoReporteService.class
