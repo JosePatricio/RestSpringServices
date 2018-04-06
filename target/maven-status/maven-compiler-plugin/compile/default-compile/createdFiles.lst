@@ -171,6 +171,7 @@ com\innovaciones\reporte\dao\CabeceraCatalogoReporteDAO.class
 com\innovaciones\reporte\dao\ParametrosDAOImpl.class
 com\innovaciones\reporte\service\ProductoModeloService.class
 com\innovaciones\reporte\model\CicloMantenimiento.class
+com\innovaciones\reporte\serviceRest\AsignacionReparacionServiceRest.class
 com\innovaciones\reporte\model\DTO\ReportesDTO.class
 com\innovaciones\reporte\model\ReporteMantenimiento.class
 com\innovaciones\reporte\dao\UbicacionProductoBodegaDAO.class

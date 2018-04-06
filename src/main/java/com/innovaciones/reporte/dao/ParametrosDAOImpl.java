@@ -30,4 +30,12 @@ public class ParametrosDAOImpl implements ParametrosDAO, Serializable {
         return result;
     }
 
+    @Override
+    @Transactional
+    public Parametros saveOrUpdate(Parametros parametro) {
+        sessionFactory.getCurrentSession().saveOrUpdate(parametro);
+        return parametro;
+
+    }
+
 }

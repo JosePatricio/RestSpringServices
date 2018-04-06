@@ -5,12 +5,9 @@
  */
 package com.innovaciones.reporte.service;
 
-import com.innovaciones.reporte.dao.ModeloDAO;
 import com.innovaciones.reporte.dao.ParametrosDAO;
-import com.innovaciones.reporte.model.Modelo;
 import com.innovaciones.reporte.model.Parametros;
 import java.io.Serializable;
-import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import lombok.Setter;
@@ -33,6 +30,12 @@ public class ParametrosServiceImpl implements ParametrosService, Serializable {
     @Transactional
     public Parametros getByParametro(String parametro) {
         return parametrosDAO.getByParametro(parametro);
+    }
+
+    @Override
+    @Transactional
+    public Parametros saveOrUpdate(Parametros parametro) {
+        return parametrosDAO.saveOrUpdate(parametro);
     }
 
 }

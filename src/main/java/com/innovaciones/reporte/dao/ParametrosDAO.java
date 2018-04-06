@@ -15,4 +15,6 @@ public interface ParametrosDAO {
 
     public Parametros getByParametro(String parametro);
 
+    public Parametros saveOrUpdate(Parametros parametro);
+
 }

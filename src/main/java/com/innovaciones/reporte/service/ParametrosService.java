@@ -13,5 +13,7 @@ import com.innovaciones.reporte.model.Parametros;
  */
 public interface ParametrosService {
 
-     public Parametros getByParametro(String parametro);
+    public Parametros getByParametro(String parametro);
+
+    public Parametros saveOrUpdate(Parametros parametro);
 }
