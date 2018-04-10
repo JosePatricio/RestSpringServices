@@ -161,7 +161,6 @@ public class ReporteServiceRest extends Utilities {
     public ResponseEntity<byte[]> getPDF(@PathVariable("id") Integer id) {
 
         byte[] contents = reporteService.jasperReporte(id);
-        System.out.println(" id es " + id + " , tamanio " + contents.length);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
         String filename = "reporte.pdf";

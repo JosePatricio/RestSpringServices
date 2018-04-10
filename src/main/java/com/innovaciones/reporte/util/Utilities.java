@@ -837,13 +837,13 @@ public class Utilities implements Serializable {
 
     }
 
-    public static boolean enviarMail(ParametrosService parametrosService, byte[] bytes, String recipient, String subject, String nombreArchivo) {
+    public static boolean enviarMail(ParametrosService parametrosService, ByteArrayOutputStream archivo, String recipient, String subject, String nombreArchivo) {
 
         try {
             if (parametrosService.getByParametro(Enums.MAIL_STATUS.getValue()).getEstado()) {
-                //  byte[] bytes = archivo.toByteArray();
-                DataSource dataSource = new ByteArrayDataSource(bytes, "application/pdf");
 
+                byte[] bytes = archivo.toByteArray();
+                DataSource dataSource = new ByteArrayDataSource(bytes, "application/pdf");
                 MimeBodyPart pdfBodyPart = new MimeBodyPart();
                 pdfBodyPart.setDataHandler(new DataHandler(dataSource));
                 pdfBodyPart.setFileName(nombreArchivo + ".pdf");
@@ -864,12 +864,12 @@ public class Utilities implements Serializable {
                 contentMultipart.addBodyPart(textPart);
                 // contentMultipart.addBodyPart(putLogoInsideEmail(cid)); // ERRORRRRR
 
-               /* try {
-                    contentMultipart.addBodyPart(putLogoInsideEmail(cid));
+                try {
+
                     System.out.println("  " + putLogoInsideEmail(cid));
                 } catch (IOException | MessagingException e) {
                     System.out.println("fallo al poner imagen en mail  " + e.getMessage());
-                }*/
+                }
 
                 contentMultipart.addBodyPart(pdfBodyPart);
                 mimeMessage.setContent(contentMultipart);
@@ -885,7 +885,7 @@ public class Utilities implements Serializable {
             return false;
         } finally {
             //clean off
-            /* if (null != archivo) {
+            if (null != archivo) {
                 try {
                     archivo.close();
                     archivo = null;
@@ -893,7 +893,7 @@ public class Utilities implements Serializable {
                     System.out.println("Error enviarMailPdf.archivo.close.finally(): " + ex.getMessage());
                     return false;
                 }
-            }*/
+            }
         }
 
     }
@@ -1219,7 +1219,7 @@ public class Utilities implements Serializable {
             fillReport(fullReportPath, parameters);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
-            return enviarMail(parametrosService, baos.toByteArray(), recipient, subject, nombreArchivo);
+            return enviarMail(parametrosService, baos, recipient, subject, nombreArchivo);
 
         } catch (JRException e) {
             System.out.println("Error enviarMailPdf: " + e.getMessage());

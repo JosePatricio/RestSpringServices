@@ -73,7 +73,7 @@ public class ClienteSucursal implements Serializable {
     @Column(name = "ciudad")
     private String ciudad;
 
-    @JsonIgnore
+    // @JsonIgnore
     @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cliente idCliente;
@@ -212,8 +212,6 @@ public class ClienteSucursal implements Serializable {
     public List<DetalleReporteTemporal> getDetalleReporteTemporalList() {
         return detalleReporteTemporalList;
     }
-
- 
 
     public void setDetalleReporteTemporalList(List<DetalleReporteTemporal> detalleReporteTemporalList) {
         this.detalleReporteTemporalList = detalleReporteTemporalList;

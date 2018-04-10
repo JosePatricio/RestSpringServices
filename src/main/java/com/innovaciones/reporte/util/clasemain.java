@@ -15,7 +15,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.innovaciones.reporte.model.AsignacionReparacion;
+import com.innovaciones.reporte.model.Cliente;
+import com.innovaciones.reporte.model.ClienteSucursal;
 import com.innovaciones.reporte.model.Producto;
+import com.innovaciones.reporte.model.TipoVisita;
 import com.innovaciones.reporte.model.Usuarios;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -38,13 +41,42 @@ public class clasemain {
 
     public static void main(String[] args) throws Exception {
 
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 3; i++) {
             AsignacionReparacion reparacion = new AsignacionReparacion();
             reparacion.setId(i);
-            reparacion.setIdUsuarioAtencion(new Usuarios(2 + i));
+
+            Usuarios usuario = new Usuarios();
+            usuario.setUsuario("patrico user");
+            usuario.setNombre("Jose Patricio");
+            usuario.setApellido("Isama Penia");
+            usuario.setId(23);
+
+            Producto producto = new Producto();
+
+            producto.setId(99);
+            producto.setDescripcionCompra("Producto a PROCESAR");
+
+            Cliente cliente = new Cliente();
+            cliente.setId(5351);
+            cliente.setCliente("CLIENTE MEGA SANTMARIA DESDE SERVER");
+            cliente.setEmail("AFINE.COM!!! ");
+
+            ClienteSucursal clienteSucursal = new ClienteSucursal();
+            clienteSucursal.setId(25);
+            clienteSucursal.setCiudad("KITU !");
+
+            clienteSucursal.setIdCliente(cliente);
+
+            reparacion.setProducto(producto);
+            reparacion.setIdClienteSucursal(clienteSucursal);
+            reparacion.setIdUsuarioAtencion(usuario);
+
+            reparacion.setIdTipoVisita(new TipoVisita(2));
             reparacion.setObservacion("observaiocne prueba " + i);
-            reparacion.setProducto(new Producto(i + 1));
+
+            //  System.out.println("ENTIDAD  == " + reparacion);
             enviarNotificacion(reparacion);
+            System.out.println("                               ");
         }
 
     }
@@ -54,6 +86,11 @@ public class clasemain {
         ObjectMapper mapper = new ObjectMapper();
         String DEVICE_ID = new clasemain().idDeviceDatabase();
         String jsonNotification = mapper.writeValueAsString(objecto);
+        
+          System.out.println("DISPOSITIVO " + DEVICE_ID);
+            System.out.println("AUTH_KEY_FCM " + AUTH_KEY_FCM);
+            
+        System.out.println("JSONPARSED " + jsonNotification);
         try {
             URL url = new URL(FMCurl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -72,14 +109,14 @@ public class clasemain {
             info.put("jsonNotification", jsonNotification); // Notification body
 
             data.put("data", info);
-            System.out.println(data.toString());
+            // System.out.println(data.toString());
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
             wr.write(data.toString());
             wr.flush();
             wr.close();
 
             int responseCode = conn.getResponseCode();
-            System.out.println("Response Code : " + responseCode);
+            // System.out.println("Response Code : " + responseCode);
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();
@@ -88,7 +125,7 @@ public class clasemain {
                 response.append(inputLine);
             }
             in.close();
-            System.out.println("Response: " + response); // <= ADD THIS
+            // System.out.println("Response: " + response); // <= ADD THIS
 
             mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.toString());

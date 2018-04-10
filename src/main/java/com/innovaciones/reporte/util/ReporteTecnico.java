@@ -8,6 +8,7 @@ package com.innovaciones.reporte.util;
 import com.innovaciones.reporte.model.DetalleCatalogoReporte;
 import com.innovaciones.reporte.model.DetalleReporteEcu911;
 import com.innovaciones.reporte.model.ProductoClienteReporte;
+import com.innovaciones.reporte.model.ReporteMantenimiento;
 import com.innovaciones.reporte.model.TipoVisita;
 import com.innovaciones.reporte.service.CabeceraCatalogoReporteService;
 import com.innovaciones.reporte.service.DetalleCatalogoReporteService;
@@ -304,6 +305,7 @@ public class ReporteTecnico extends Utilities implements Serializable {
         List<DetalleCatalogoReporte> otros = llenarRepuestosOtros(listCorrectivoOtros(cabeceraCatalogoReporteService.getCabeceraCatalogoReportesByCodigo(Enums.MANTENIMIENTO_OTROS.getValue())), productoClienteReporte,
                 cabeceraCatalogoReporteService.getCabeceraCatalogoReportesByCodigo(Enums.MANTENIMIENTO_OTROS.getValue()));
 
+       
         //MANTENIMIENTO PREVENTIVO
         for (DetalleCatalogoReporte detalleCatalogoReporte : listProcesamiento) {
             detalleCatalogoReporte.setDescripcion(detalleCatalogoReporte.getDescripcion().trim());

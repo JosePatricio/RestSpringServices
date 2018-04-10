@@ -100,6 +100,7 @@
     </beans:bean>
     <beans:bean class="com.innovaciones.reporte.service.AsignacionReparacionServiceImpl" id="asignacionReparacionService">
         <beans:property name="asignacionReparacionDAO" ref="asignacionReparacionDAO"/>
+        <beans:property name="parametrosService" ref="parametrosService"/>
     </beans:bean>
     
     <beans:bean class="com.innovaciones.reporte.dao.BodegaDAOImpl" id="bodegaDAO">

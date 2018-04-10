@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author fyaulema
@@ -68,23 +69,23 @@ public class NotificacionDAOImp implements NotificacionDAO, Serializable {
     public NotificacionDTO getNotificacionById(int id) {
         Query query = sessionFactory.getCurrentSession().createSQLQuery(
                 "SELECT  ar.id, DATE_FORMAT(fecha_inicio_atencion ,'%d-%m-%Y') AS fecha_inicio, DATE_FORMAT(ar.hora_inicio_atencion ,'%H:%i') AS hora_inicio,  "
-                        + "DATE_FORMAT(ar.fecha_fin_atencion ,'%d-%m-%Y') fecha_fin, DATE_FORMAT(ar.hora_fin_atencion,'%H:%i') hora_fin,  "
-                        + "concat(u.nombre,' ', u.apellido) AS tecnico, c.cliente, ar.tipo_reporte AS tipo_reporte,  "
-                        + "ar.estado AS estado_notificacion, ar.prioridad, ar.tipo_notificacion tipo, c.id AS id_cliente, "
-                        + "ar.producto AS id_producto, ar.id_usuario_atencion AS id_tecnico,ar.id_reporte, ar.tipo_equipo, "
-                        + "cs.id id_sucursal, cs.nombre sucursal, cs.direccion ,cs.nombre_contacto, cs.celular_contacto, "
-                        + "v.id id_visita, v.descripcion tipo_visita "
-                        + "FROM asignacion_reparacion ar  "
-                        + "INNER JOIN usuarios u ON ar.id_usuario_atencion = u.id "
-//                        + "INNER JOIN producto_cliente pc on ar.id_producto_cliente = pc.id "
-                        + "INNER JOIN cliente_sucursal cs ON cs.id = ar.id_cliente_sucursal "
-                        + "INNER JOIN cliente c ON c.id = cs.id_cliente "
-                        + "INNER JOIN tipo_visita v ON v.id = ar.id_tipo_visita "
-                        + "WHERE ar.id = :id "
-                        + "ORDER BY substring(cast(fecha_inicio AS NCHAR(10)),7,10) DESC,"
-                        + "substring(cast(fecha_inicio AS NCHAR(10)),4,2) DESC,"
-                        + "substring(cast(fecha_inicio AS NCHAR(10)),1,2) DESC,"
-                        + "ar.prioridad DESC"
+                + "DATE_FORMAT(ar.fecha_fin_atencion ,'%d-%m-%Y') fecha_fin, DATE_FORMAT(ar.hora_fin_atencion,'%H:%i') hora_fin,  "
+                + "concat(u.nombre,' ', u.apellido) AS tecnico, c.cliente, ar.tipo_reporte AS tipo_reporte,  "
+                + "ar.estado AS estado_notificacion, ar.prioridad, ar.tipo_notificacion tipo, c.id AS id_cliente, "
+                + "ar.producto AS id_producto, ar.id_usuario_atencion AS id_tecnico,ar.id_reporte, ar.tipo_equipo, "
+                + "cs.id id_sucursal, cs.nombre sucursal, cs.direccion ,cs.nombre_contacto, cs.celular_contacto, "
+                + "v.id id_visita, v.descripcion tipo_visita "
+                + "FROM asignacion_reparacion ar  "
+                + "INNER JOIN usuarios u ON ar.id_usuario_atencion = u.id "
+                //                        + "INNER JOIN producto_cliente pc on ar.id_producto_cliente = pc.id "
+                + "INNER JOIN cliente_sucursal cs ON cs.id = ar.id_cliente_sucursal "
+                + "INNER JOIN cliente c ON c.id = cs.id_cliente "
+                + "INNER JOIN tipo_visita v ON v.id = ar.id_tipo_visita "
+                + "WHERE ar.id = :id "
+                + "ORDER BY substring(cast(fecha_inicio AS NCHAR(10)),7,10) DESC,"
+                + "substring(cast(fecha_inicio AS NCHAR(10)),4,2) DESC,"
+                + "substring(cast(fecha_inicio AS NCHAR(10)),1,2) DESC,"
+                + "ar.prioridad DESC"
         );
         query.setParameter("id", id);
         List<Object[]> resultObject = (List<Object[]>) query.list();
@@ -92,32 +93,33 @@ public class NotificacionDAOImp implements NotificacionDAO, Serializable {
     }
 
     @Override
+    @Transactional
     public List<NotificacionDTO> getNotificacionesByEstadoReporte(boolean preasignacion) {
 
         Query query = sessionFactory.getCurrentSession().createSQLQuery(
                 "SELECT  ar.id, DATE_FORMAT(fecha_inicio_atencion ,'%d-%m-%Y') AS fecha_inicio, DATE_FORMAT(ar.hora_inicio_atencion ,'%H:%i') AS hora_inicio,  "
-                        + "DATE_FORMAT(ar.fecha_fin_atencion ,'%d-%m-%Y') fecha_fin, DATE_FORMAT(ar.hora_fin_atencion,'%H:%i') hora_fin,  "
-                        + "concat(u.nombre,' ', u.apellido) AS tecnico, c.cliente, ar.tipo_reporte AS tipo_reporte,  "
-                        + "ar.estado AS estado_notificacion, ar.prioridad, ar.tipo_notificacion tipo, c.id AS id_cliente, "
-                        + "ar.producto AS id_producto, ar.id_usuario_atencion AS id_tecnico,ar.id_reporte, ar.tipo_equipo, "
-                        + "cs.id id_sucursal, cs.nombre sucursal, cs.direccion ,cs.nombre_contacto, cs.celular_contacto, "
-                        + "v.id id_visita, v.descripcion tipo_visita "
-                        + "FROM asignacion_reparacion ar  "
-                        + "LEFT JOIN usuarios u ON ar.id_usuario_atencion = u.id "
-//                        + "INNER JOIN producto_cliente pc on ar.id_producto_cliente = pc.id "
-                        + "INNER JOIN cliente_sucursal cs ON cs.id = ar.id_cliente_sucursal "
-                        + "INNER JOIN cliente c ON c.id = cs.id_cliente "
-                        + "INNER JOIN tipo_visita v ON v.id = ar.id_tipo_visita "
-                        + "WHERE ar.estado = :estadoAsignacion "
-//                        + "AND ar.preasignacion = :preasignacion "
-                        + "ORDER BY substring(cast(fecha_inicio AS NCHAR(10)),7,10) DESC,"
-                        + "substring(cast(fecha_inicio AS NCHAR(10)),4,2) DESC,"
-                        + "substring(cast(fecha_inicio AS NCHAR(10)),1,2) DESC,"
-                        + "ar.prioridad DESC"
+                + "DATE_FORMAT(ar.fecha_fin_atencion ,'%d-%m-%Y') fecha_fin, DATE_FORMAT(ar.hora_fin_atencion,'%H:%i') hora_fin,  "
+                + "concat(u.nombre,' ', u.apellido) AS tecnico, c.cliente, ar.tipo_reporte AS tipo_reporte,  "
+                + "ar.estado AS estado_notificacion, ar.prioridad, ar.tipo_notificacion tipo, c.id AS id_cliente, "
+                + "ar.producto AS id_producto, ar.id_usuario_atencion AS id_tecnico,ar.id_reporte, ar.tipo_equipo, "
+                + "cs.id id_sucursal, cs.nombre sucursal, cs.direccion ,cs.nombre_contacto, cs.celular_contacto, "
+                + "v.id id_visita, v.descripcion tipo_visita "
+                + "FROM asignacion_reparacion ar  "
+                + "INNER JOIN usuarios u ON ar.id_usuario_atencion = u.id "
+                //                        + "INNER JOIN producto_cliente pc on ar.id_producto_cliente = pc.id "
+                + "INNER JOIN cliente_sucursal cs ON cs.id = ar.id_cliente_sucursal "
+                + "INNER JOIN cliente c ON c.id = cs.id_cliente "
+                + "INNER JOIN tipo_visita v ON v.id = ar.id_tipo_visita "
+                + "WHERE ar.estado = :estadoAsignacion "
+                //                        + "AND ar.preasignacion = :preasignacion "
+                + "ORDER BY substring(cast(fecha_inicio AS NCHAR(10)),7,10) DESC,"
+                + "substring(cast(fecha_inicio AS NCHAR(10)),4,2) DESC,"
+                + "substring(cast(fecha_inicio AS NCHAR(10)),1,2) DESC,"
+                + "ar.prioridad DESC"
         );
 
-        query.setParameter("estadoAsignacion", preasignacion ?
-                Enums.ESTADO_ASIGNACION_PREASIGNADO.getValue() : Enums.ESTADO_ASIGNACION_ASIGNADO.getValue());
+        query.setParameter("estadoAsignacion", preasignacion
+                ? Enums.ESTADO_ASIGNACION_PREASIGNADO.getValue() : Enums.ESTADO_ASIGNACION_ASIGNADO.getValue());
 //        query.setParameter("preasignacion", preasignacion);
 
         List<Object[]> resultObject = (List<Object[]>) query.list();
@@ -134,33 +136,33 @@ public class NotificacionDAOImp implements NotificacionDAO, Serializable {
     }
 
     @Override
+    @Transactional
     public List<NotificacionDTO> getNotificacionesByEstadoReporteByIdUsuario(Integer idUsuario, boolean preasignacion) {
 
-
         Query query = sessionFactory.getCurrentSession().createSQLQuery("SELECT  ar.id, DATE_FORMAT(fecha_inicio_atencion ,'%d-%m-%Y') AS fecha_inicio, DATE_FORMAT(ar.hora_inicio_atencion ,'%H:%i') AS hora_inicio,  "
-                        + "DATE_FORMAT(ar.fecha_fin_atencion ,'%d-%m-%Y') fecha_fin, DATE_FORMAT(ar.hora_fin_atencion,'%H:%i') hora_fin,  "
-                        + "concat(u.nombre,' ', u.apellido) AS tecnico, c.cliente, ar.tipo_reporte AS tipo_reporte,  "
-                        + "ar.estado AS estado_notificacion, ar.prioridad, ar.tipo_notificacion tipo, c.id AS id_cliente, "
-                        + "ar.producto AS id_producto, ar.id_usuario_atencion AS id_tecnico,ar.id_reporte, ar.tipo_equipo, "
-                        + "cs.id id_sucursal, cs.nombre sucursal, cs.direccion ,cs.nombre_contacto, cs.celular_contacto, "
-                        + "v.id id_visita, v.descripcion tipo_visita "
-                        + "FROM asignacion_reparacion ar  "
-                        + "INNER JOIN usuarios u ON ar.id_usuario_atencion = u.id "
-//                + "INNER JOIN producto_cliente pc ON ar.id_producto_cliente = pc.id "
-                        + "INNER JOIN cliente_sucursal cs ON cs.id = ar.id_cliente_sucursal "
-                        + "INNER JOIN cliente c ON c.id = cs.id_cliente "
-                        + "INNER JOIN tipo_visita v ON v.id = ar.id_tipo_visita "
-                        + "WHERE ar.id_usuario_atencion=:idUsuario AND ar.estado = :estadoAsignacion "
-//                        + "AND ar.preasignacion = :preasignacion "
-                        + "ORDER BY substring(cast(fecha_inicio AS NCHAR(10)),7,10) DESC,"
-                        + "substring(cast(fecha_inicio AS NCHAR(10)),4,2) DESC,"
-                        + "substring(cast(fecha_inicio AS NCHAR(10)),1,2) DESC,"
-                        + "ar.prioridad DESC"
+                + "DATE_FORMAT(ar.fecha_fin_atencion ,'%d-%m-%Y') fecha_fin, DATE_FORMAT(ar.hora_fin_atencion,'%H:%i') hora_fin,  "
+                + "concat(u.nombre,' ', u.apellido) AS tecnico, c.cliente, ar.tipo_reporte AS tipo_reporte,  "
+                + "ar.estado AS estado_notificacion, ar.prioridad, ar.tipo_notificacion tipo, c.id AS id_cliente, "
+                + "ar.producto AS id_producto, ar.id_usuario_atencion AS id_tecnico,ar.id_reporte, ar.tipo_equipo, "
+                + "cs.id id_sucursal, cs.nombre sucursal, cs.direccion ,cs.nombre_contacto, cs.celular_contacto, "
+                + "v.id id_visita, v.descripcion tipo_visita "
+                + "FROM asignacion_reparacion ar  "
+                + "INNER JOIN usuarios u ON ar.id_usuario_atencion = u.id "
+                //                + "INNER JOIN producto_cliente pc ON ar.id_producto_cliente = pc.id "
+                + "INNER JOIN cliente_sucursal cs ON cs.id = ar.id_cliente_sucursal "
+                + "INNER JOIN cliente c ON c.id = cs.id_cliente "
+                + "INNER JOIN tipo_visita v ON v.id = ar.id_tipo_visita "
+                + "WHERE ar.id_usuario_atencion=:idUsuario AND ar.estado = :estadoAsignacion "
+                //                        + "AND ar.preasignacion = :preasignacion "
+                + "ORDER BY substring(cast(fecha_inicio AS NCHAR(10)),7,10) DESC,"
+                + "substring(cast(fecha_inicio AS NCHAR(10)),4,2) DESC,"
+                + "substring(cast(fecha_inicio AS NCHAR(10)),1,2) DESC,"
+                + "ar.prioridad DESC"
         );
 
         query.setParameter("idUsuario", idUsuario)
-                .setParameter("estadoAsignacion", preasignacion ?
-                        Enums.ESTADO_ASIGNACION_PREASIGNADO.getValue() : Enums.ESTADO_ASIGNACION_ASIGNADO.getValue());
+                .setParameter("estadoAsignacion", preasignacion
+                        ? Enums.ESTADO_ASIGNACION_PREASIGNADO.getValue() : Enums.ESTADO_ASIGNACION_ASIGNADO.getValue());
 //                .setParameter("preasignacion", preasignacion);
         List<Object[]> resultObject = (List<Object[]>) query.list();
 
@@ -169,12 +171,12 @@ public class NotificacionDAOImp implements NotificacionDAO, Serializable {
 
     @Override
     public List<ReportesDTO> getReportesPorProducto(int rows, int idProducto) throws ParseException {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("" +
-                "SELECT DATE_FORMAT(r.fecha, '%d-%m-%Y %H:%i:%s'), r.notas, r.numero_reporte_tecnico, r.id, r.factura, r.subtipo " +
-                "FROM reporte r " +
-                "INNER JOIN producto_cliente_reporte p ON p.id_reporte = r.id " +
-                "INNER JOIN producto prod ON p.id_producto = prod.id " +
-                "WHERE prod.id = :idProducto ORDER BY r.fecha DESC");
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(""
+                + "SELECT DATE_FORMAT(r.fecha, '%d-%m-%Y %H:%i:%s'), r.notas, r.numero_reporte_tecnico, r.id, r.factura, r.subtipo "
+                + "FROM reporte r "
+                + "INNER JOIN producto_cliente_reporte p ON p.id_reporte = r.id "
+                + "INNER JOIN producto prod ON p.id_producto = prod.id "
+                + "WHERE prod.id = :idProducto ORDER BY r.fecha DESC");
         query.setParameter("idProducto", idProducto);
         query.setMaxResults(rows);
 

@@ -36,4 +36,5 @@ public interface AsignacionReparacionService {
 
     List<AsignacionReparacion> getAsignacionReparaciones(int rows, int idCliente);
 
+    public boolean enviarNotificacion(AsignacionReparacion objecto);
 }
