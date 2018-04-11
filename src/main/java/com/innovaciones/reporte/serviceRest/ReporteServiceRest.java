@@ -5,6 +5,8 @@
  */
 package com.innovaciones.reporte.serviceRest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.innovaciones.reporte.model.DTO.DatosReporteDTO;
 import com.innovaciones.reporte.model.DTO.ReportesDTO;
 import com.innovaciones.reporte.model.ProductoClienteReporte;
@@ -16,6 +18,8 @@ import com.innovaciones.reporte.service.ProductoService;
 import com.innovaciones.reporte.service.ReporteService;
 import com.innovaciones.reporte.util.Utilities;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +62,19 @@ public class ReporteServiceRest extends Utilities {
     @Autowired
     private ProductoClienteReporteService productoClienteReporteService;
 
+    @RequestMapping(value = "/saveAllReporteImpresoras/", method = RequestMethod.POST)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public ResponseEntity<Void> saveAllReporteImpresoras(@RequestBody DatosReporteDTO datosReporteDTO, UriComponentsBuilder ucBuilder) {
+        HttpHeaders hd = new HttpHeaders();
+
+         reporteService.saveAllReporteImpresoras(datosReporteDTO);
+        hd.add("Access-Control-Allow-Origin", "*");
+        hd.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+        hd.add("Access-Control-Allow-Headers", "Content-Type");
+
+        return new ResponseEntity<Void>(hd, HttpStatus.CREATED);
+    }
+
     @RequestMapping(value = "/updateAllReporteImpresoras/{id}", method = RequestMethod.PUT)
     @CrossOrigin(origins = "*", maxAge = 3600)
     public ResponseEntity<Void> updateAllReporteImpresoras(@PathVariable("id") Integer id, @RequestBody DatosReporteDTO datosReporteDTO) {
@@ -71,17 +88,13 @@ public class ReporteServiceRest extends Utilities {
         return new ResponseEntity<Void>(hd, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/saveAllReporteImpresoras/", method = RequestMethod.POST)
-    @CrossOrigin(origins = "*", maxAge = 3600)
-    public ResponseEntity<Void> saveAllReporteImpresoras(@RequestBody DatosReporteDTO datosReporteDTO, UriComponentsBuilder ucBuilder) {
+    @RequestMapping(value = "/reportesBySubTipo/{subTipo}", method = RequestMethod.GET, produces = "application/json")
+    //@CrossOrigin(origins = "*")
+    public ResponseEntity<List<ReportesDTO>> reportesBySubTipo(@PathVariable("subTipo") String subTipo) {
         HttpHeaders hd = new HttpHeaders();
-       
-        reporteService.saveAllReporteImpresoras(datosReporteDTO);
-        hd.add("Access-Control-Allow-Origin", "*");
-        hd.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-        hd.add("Access-Control-Allow-Headers", "Content-Type");
-
-        return new ResponseEntity<Void>(hd, HttpStatus.CREATED);
+        System.out.println("  TIPO  "+subTipo);
+        
+        return new ResponseEntity<List<ReportesDTO>>(consultasService.reportesBySubTipo(subTipo), headers(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getDatosReporteDTO", method = RequestMethod.GET, produces = "application/json")
@@ -135,12 +148,6 @@ public class ReporteServiceRest extends Utilities {
         hd.add("Access-Control-Allow-Headers", "Content-Type");
 
         return new ResponseEntity<ProductoClienteReporte>(productoClienteReporteService.getByReportId(id), hd, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/reportesBySubTipo/{subTipo}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<ReportesDTO>> reportesBySubTipo(@PathVariable("subTipo") String subTipo) {
-
-        return new ResponseEntity<List<ReportesDTO>>(consultasService.reportesBySubTipo(subTipo), headers(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/jasper/{id}", method = RequestMethod.GET, produces = "application/pdf")

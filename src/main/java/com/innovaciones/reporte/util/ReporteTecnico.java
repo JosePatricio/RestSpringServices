@@ -6,26 +6,19 @@
 package com.innovaciones.reporte.util;
 
 import com.innovaciones.reporte.model.DetalleCatalogoReporte;
-import com.innovaciones.reporte.model.DetalleReporteEcu911;
 import com.innovaciones.reporte.model.ProductoClienteReporte;
-import com.innovaciones.reporte.model.ReporteMantenimiento;
 import com.innovaciones.reporte.model.TipoVisita;
 import com.innovaciones.reporte.service.CabeceraCatalogoReporteService;
 import com.innovaciones.reporte.service.DetalleCatalogoReporteService;
 import com.innovaciones.reporte.service.ParametrosService;
 import com.innovaciones.reporte.service.TipoVisitaService;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
 import lombok.Getter;
 import lombok.Setter;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -130,10 +123,6 @@ public class ReporteTecnico extends Utilities implements Serializable {
 
         try {
 
-            /*     ************************************          */
- /*/   if (reporteBean.getSesionBean().getLogoEmpresaCode64() != null && !reporteBean.getSesionBean().getLogoEmpresaCode64().isEmpty()) {
-                parametros.put("logo_empresa", reporteBean.getSesionBean().getLogoEmpresaCode64());
-            }*/
             parametros.put("codigo", productoClienteReporte.getIdReporte().getIdUsuario().getCodigo());
 
             parametros.put("fecha", fomatearFecha(productoClienteReporte.getIdReporte().getFecha()));
@@ -209,9 +198,17 @@ public class ReporteTecnico extends Utilities implements Serializable {
             parametros.put("serie", productoClienteReporte.getSerie());
             parametros.put("ip", productoClienteReporte.getIpEquipo());
             parametros.put("firmware", productoClienteReporte.getIdProducto().getVersionFirmware());
+
+            //DATOS SUCURSAL
             parametros.put("empty1", productoClienteReporte.getIdClienteSucursal().getNombreContacto());
-            parametros.put("empty2", productoClienteReporte.getIdClienteSucursal().getEmailContacto());
-            parametros.put("ciudad_sucursal", productoClienteReporte.getIdClienteSucursal().getCiudad());
+            parametros.put("empty1", productoClienteReporte.getIdClienteSucursal().getEmailContacto());
+            parametros.put("departamento", productoClienteReporte.getIdClienteSucursal().getCiudad());
+            parametros.put("direccion_equipo", productoClienteReporte.getIdClienteSucursal().getDireccion());
+            parametros.put("telefono_equipo", productoClienteReporte.getIdClienteSucursal().getTelefonoContacto());
+            parametros.put("mail_equipo", productoClienteReporte.getIdClienteSucursal().getCelularContacto());
+
+            System.out.println(" LA CIOUDAD ES " + productoClienteReporte.getIdClienteSucursal().getCiudad());
+            System.out.println(" LA DIRECCIONES ES " + productoClienteReporte.getIdClienteSucursal().getDireccion());
             //DATOS DE CONTADORES
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalAnterior() != null) {
                 parametros.put("contador_total_anterior", productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalAnterior());
@@ -305,7 +302,6 @@ public class ReporteTecnico extends Utilities implements Serializable {
         List<DetalleCatalogoReporte> otros = llenarRepuestosOtros(listCorrectivoOtros(cabeceraCatalogoReporteService.getCabeceraCatalogoReportesByCodigo(Enums.MANTENIMIENTO_OTROS.getValue())), productoClienteReporte,
                 cabeceraCatalogoReporteService.getCabeceraCatalogoReportesByCodigo(Enums.MANTENIMIENTO_OTROS.getValue()));
 
-       
         //MANTENIMIENTO PREVENTIVO
         for (DetalleCatalogoReporte detalleCatalogoReporte : listProcesamiento) {
             detalleCatalogoReporte.setDescripcion(detalleCatalogoReporte.getDescripcion().trim());

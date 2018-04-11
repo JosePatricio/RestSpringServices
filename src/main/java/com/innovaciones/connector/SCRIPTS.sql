@@ -14,7 +14,7 @@ $ ionic generate pipe MyFilterPipe
 
 **********************************************
 git add -A
-git commit -m "com"
+git commit -m "Reporte Impresoras , save - update (Validacion en desarrollo)"
 
 git push -u origin master
 

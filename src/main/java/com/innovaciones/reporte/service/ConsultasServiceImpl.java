@@ -49,6 +49,7 @@ public class ConsultasServiceImpl implements ConsultasService, Serializable {
     @Override
     @Transactional
     public List<ReportesDTO> reportesBySubTipo(String subTipo) {
+        System.out.println("ENTRO A SERVICIO  "+subTipo);
         return consultasDAO.reportesBySubTipo(subTipo);
     }
 

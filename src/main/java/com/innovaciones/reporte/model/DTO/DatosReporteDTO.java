@@ -135,4 +135,12 @@ public class DatosReporteDTO implements Serializable {
     @Setter
     private List<DetalleCatalogoReporte> lista12;
 
+    @Override
+    public String toString() {
+        return "DatosReporteDTO{" + "reporte=" + reporte + ", cliente=" + cliente + ", producto=" + producto + ", serie=" + serie + ", productoDetalleReporte=" + productoDetalleReporte + ", productoClienteReporte=" + productoClienteReporte + ", idClienteSucursal=" + idClienteSucursal + ", idTipoVisita=" + idTipoVisita + ", usuarios=" + usuarios + ", asignacionReparacion=" + asignacionReparacion + ", idProyecto=" + idProyecto + '}';
+    }
+    
+    
+    
+
 }

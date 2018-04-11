@@ -27,13 +27,10 @@ import com.innovaciones.reporte.model.Usuarios;
 import com.innovaciones.reporte.util.Enums;
 import com.innovaciones.reporte.util.ReporteTecnico;
 import com.innovaciones.reporte.util.Utilities;
-import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -183,6 +180,11 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
         newReporte.setFecha(new Date());
         newReporte.setFechaCreacion(new Date());
         newReporte.setUsuarioCreacion(usuario.getUsuario());
+
+        System.out.println(" GUARDADO CORRECTAMENTEO TOTOT SWEDE ");
+
+        System.out.println("  llego  " + reporte);
+        System.out.println("  nuevo  " + newReporte);
         newReporte = this.save((Reporte) toUpperCaseStrings(newReporte));
 
         DetalleInventarioProducto searchDetalleInventarioProducto = new DetalleInventarioProducto();
@@ -224,6 +226,9 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
 
         this.saveRepuestosReportePreventivos(globalProductoClienteReporte, listPreventivos);
         this.saveRepuestosReporteCorrectivos(globalProductoClienteReporte, listCorrectivos);
+
+        System.out.println("SE GUARDO NTODO ");
+
     }
 
     @Override
