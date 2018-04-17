@@ -5,6 +5,8 @@
  */
 package com.innovaciones.reporte.serviceRest;
 
+import com.innovaciones.reporte.model.DTO.DatosReporteDTO;
+import com.innovaciones.reporte.model.Marca;
 import com.innovaciones.reporte.model.Parametros;
 import com.innovaciones.reporte.service.ParametrosService;
 import com.innovaciones.reporte.util.Utilities;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +46,8 @@ public class ParametrosServiceRest extends Utilities {
 
         Parametros currentvalue = parametrosService.getByParametro("DEVICE_ID_FIREBASE");
 
+        System.out.println("device firebase  " + valor);
+        System.out.println("valor base de datos  " + currentvalue.getValor());
         if (!currentvalue.getValor().equals(valor)) {
             Parametros parametro = new Parametros();
             parametro = currentvalue;
@@ -53,6 +58,22 @@ public class ParametrosServiceRest extends Utilities {
             System.out.println("ACUTLUIZADO   " + currentvalue);
 
         }
+
+        hd.add("Access-Control-Allow-Origin", "*");
+        hd.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+        hd.add("Access-Control-Allow-Headers", "Content-Type");
+
+        return new ResponseEntity<Void>(hd, HttpStatus.OK);
+    }
+
+   
+    
+    @RequestMapping(value = "/consola/", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public ResponseEntity<Void> consola(@RequestBody String valor) {
+        HttpHeaders hd = new HttpHeaders();
+
+        System.out.println(" " +valor);
 
         hd.add("Access-Control-Allow-Origin", "*");
         hd.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");

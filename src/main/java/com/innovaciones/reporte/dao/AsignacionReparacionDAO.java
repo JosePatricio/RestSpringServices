@@ -29,10 +29,12 @@ public interface AsignacionReparacionDAO {
     public List<AsignacionReparacion> getAsignacionReparacionesNoEliminados();
 
     public List<AsignacionReparacion> getAsignacionReparacionesByFechaByIdUsuario(Date fecha, Integer idUsuario);
-    
+
     public List<AsignacionReparacion> getAsignacionReparacionesFiltradasByTecnicosFechas(String listIdTecnicos, Date fechaInicioFiltro, Date fechaFinFiltro, boolean preasignacion);
 
     public List<AsignacionReparacion> buscarAsignacionesPorFechas(Date fechaInicio, Date fechaFin, String estado);
 
     List<AsignacionReparacion> getAsignacionReparaciones(int rows, int idCliente);
+
+    public List<AsignacionReparacion> getIdUsuarioAtencionByEstado(Integer id, String estado);
 }

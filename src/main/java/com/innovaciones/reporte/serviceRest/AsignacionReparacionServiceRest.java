@@ -10,6 +10,7 @@ import com.innovaciones.reporte.service.AsignacionReparacionService;
 import com.innovaciones.reporte.service.NotificacionService;
 import com.innovaciones.reporte.util.Utilities;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,8 @@ public class AsignacionReparacionServiceRest extends Utilities {
     @RequestMapping(value = "/getNotificacionesByEstadoReporteByIdUsuario/{id}", method = RequestMethod.GET, produces = "application/json")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public ResponseEntity<List<AsignacionReparacion>> getNotificacionesByEstadoReporteByIdUsuario(@PathVariable("id") Integer id) {
-        List<AsignacionReparacion> lista = asignacionReparacionService.getAsignacionReparacionesNoEliminados();
-        lista = lista.stream().filter((AsignacionReparacion a) -> a.getIdUsuarioAtencion().getId().intValue() == id).collect(Collectors.toList());
-
+        List<AsignacionReparacion> lista = asignacionReparacionService.getIdUsuarioAtencionByEstado(id, "ASIGNADO");
+        System.out.println("TAMANIO " + lista.size());
         return new ResponseEntity<List<AsignacionReparacion>>(lista, headers(), HttpStatus.OK);
 
     }
@@ -47,7 +47,7 @@ public class AsignacionReparacionServiceRest extends Utilities {
     public ResponseEntity<AsignacionReparacion> AsignacionReparacion(@PathVariable("id") Integer id) {
 
         AsignacionReparacion as = asignacionReparacionService.getAsignacionReparacionById(id);
-       
+
         //  System.out.println("ENTIDAD  == " + reparacion);
         // enviarNotificacion(reparacion);
         if (asignacionReparacionService.enviarNotificacion(as)) {

@@ -10,8 +10,6 @@ import com.innovaciones.reporte.util.Enums;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -45,9 +43,9 @@ public class AsignacionReparacionDAOImpl implements AsignacionReparacionDAO, Ser
 
     @Override
     public List<AsignacionReparacion> getAsignacionReparaciones(int rows, int idCliente) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from AsignacionReparacion a " +
-                "where a.idClienteSucursal.idCliente.id = :idCliente " +
-                "Order By a.fechaInicioAtencion Desc, a.horaInicioAtencion DESC");
+        Query query = sessionFactory.getCurrentSession().createQuery("from AsignacionReparacion a "
+                + "where a.idClienteSucursal.idCliente.id = :idCliente "
+                + "Order By a.fechaInicioAtencion Desc, a.horaInicioAtencion DESC");
         query.setParameter("idCliente", idCliente);
         query.setMaxResults(rows);
         return query.list();
@@ -122,8 +120,8 @@ public class AsignacionReparacionDAOImpl implements AsignacionReparacionDAO, Ser
 
     @Override
     public List<AsignacionReparacion> buscarAsignacionesPorFechas(Date fechaInicio, Date fechaFin, String estado) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from AsignacionReparacion a WHERE " +
-                "a.fechaInicioAtencion between :fechaInicio and :fechaFin and a.estado = :estado"
+        Query query = sessionFactory.getCurrentSession().createQuery("from AsignacionReparacion a WHERE "
+                + "a.fechaInicioAtencion between :fechaInicio and :fechaFin and a.estado = :estado"
                 + " ORDER BY a.fechaInicioAtencion, a.horaInicioAtencion, a.idUsuarioAtencion.nombre, a.idUsuarioAtencion.apellido");
         query.setParameter("fechaInicio", fechaInicio);
         query.setParameter("fechaFin", fechaFin);
@@ -143,6 +141,13 @@ public class AsignacionReparacionDAOImpl implements AsignacionReparacionDAO, Ser
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    public List<AsignacionReparacion> getIdUsuarioAtencionByEstado(Integer id, String estado) {
+        return sessionFactory.getCurrentSession().createQuery("from AsignacionReparacion a WHERE  estado = '" + estado + "' AND a.idUsuarioAtencion.id=" + id + " Order By a.fechaInicioAtencion Desc, a.prioridad desc, a.horaInicioAtencion Asc").
+                list();
+
     }
 
 }

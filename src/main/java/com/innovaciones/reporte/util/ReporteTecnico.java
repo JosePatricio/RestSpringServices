@@ -207,8 +207,6 @@ public class ReporteTecnico extends Utilities implements Serializable {
             parametros.put("telefono_equipo", productoClienteReporte.getIdClienteSucursal().getTelefonoContacto());
             parametros.put("mail_equipo", productoClienteReporte.getIdClienteSucursal().getCelularContacto());
 
-            System.out.println(" LA CIOUDAD ES " + productoClienteReporte.getIdClienteSucursal().getCiudad());
-            System.out.println(" LA DIRECCIONES ES " + productoClienteReporte.getIdClienteSucursal().getDireccion());
             //DATOS DE CONTADORES
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalAnterior() != null) {
                 parametros.put("contador_total_anterior", productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalAnterior());

@@ -238,39 +238,110 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
         List<List<DetalleCatalogoReporte>> listCorrectivos = new ArrayList<>();
         List<List<DetalleCatalogoReporte>> listPreventivos = new ArrayList<>();
 
-        if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
-            listPreventivos.add(datosReporteDTO.getLista1());
+        System.out.println("SUBTIPO ES " + datosReporteDTO.getReporte().getSubtipo());
 
+        if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_DIAGNOSTICO.getValue()) || datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_REPARACION.getValue())) {
+
+            if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista1());
+            }
+            if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista2());
+            }
+            if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista3());
+            }
+            if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista4());
+            }
+
+            if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista5());
+            }
+            if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista6());
+            }
+            if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista7());
+            }
+            if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista7());
+            }
+            if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista7());
+            }
+            if (datosReporteDTO.getLista8() != null && !datosReporteDTO.getLista8().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista8());
+            }
+            if (datosReporteDTO.getLista9() != null && !datosReporteDTO.getLista9().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista9());
+            }
         }
-        if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
-            listPreventivos.add(datosReporteDTO.getLista2());
+
+        if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_SCANNERS.getValue())) {
+            if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista1());
+            }
+            if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista2());
+            }
+            if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista3());
+            }
+
+            if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista4());
+            }
+            if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista5());
+            }
+            if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista6());
+            }
         }
-        if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
-            listPreventivos.add(datosReporteDTO.getLista3());
+
+        if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_MONITORES.getValue())) {
+            if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista1());
+            }
+            if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista2());
+            }
+            if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista3());
+            }
+
+            if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista4());
+            }
+            if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista5());
+            }
+            if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista6());
+            }
         }
-        if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
-            listPreventivos.add(datosReporteDTO.getLista4());
-        }
-        if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista5());
-        }
-        if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista6());
-        }
-        if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista7());
-        }
-        if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista7());
-        }
-        if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista7());
-        }
-        if (datosReporteDTO.getLista8() != null && !datosReporteDTO.getLista8().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista8());
-        }
-        if (datosReporteDTO.getLista9() != null && !datosReporteDTO.getLista9().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista9());
+
+        if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_TRITURADORAS.getValue())) {
+            if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista1());
+            }
+            if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista2());
+            }
+            if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista3());
+            }
+
+            if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista4());
+            }
+            if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista5());
+            }
+            if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista6());
+            }
         }
 
         this.saveAllReporte(datosReporteDTO.getReporte(), datosReporteDTO.getCliente(), datosReporteDTO.getProducto(), datosReporteDTO.getSerie(), datosReporteDTO.getProductoDetalleReporte(),

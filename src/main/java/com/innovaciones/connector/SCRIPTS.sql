@@ -14,7 +14,7 @@ $ ionic generate pipe MyFilterPipe
 
 **********************************************
 git add -A
-git commit -m "Reporte Impresoras , save - update (Validacion en desarrollo)"
+git commit -m "Revision de save and update"
 
 git push -u origin master
 
@@ -29,7 +29,10 @@ ionic cordova build android
 
 heroku logs --tail
 
+    
 
+https://github.com/tomek-servlets/phpMyAdmin.git
+https://github.com/JosePatricio/openshiftjava.git
 
 ionic cordova plugin add cordova-plugin-fcm
 npm install --save @ionic-native/fcm

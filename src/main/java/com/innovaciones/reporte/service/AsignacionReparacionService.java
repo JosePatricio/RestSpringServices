@@ -37,4 +37,6 @@ public interface AsignacionReparacionService {
     List<AsignacionReparacion> getAsignacionReparaciones(int rows, int idCliente);
 
     public boolean enviarNotificacion(AsignacionReparacion objecto);
+
+    public List<AsignacionReparacion> getIdUsuarioAtencionByEstado(Integer id, String estado);
 }

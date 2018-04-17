@@ -41,7 +41,7 @@ public class clasemain {
 
     public static void main(String[] args) throws Exception {
 
-        for (int i = 1; i < 3; i++) {
+        for (int i = 1; i < 2; i++) {
             AsignacionReparacion reparacion = new AsignacionReparacion();
             reparacion.setId(i);
 
@@ -73,7 +73,8 @@ public class clasemain {
 
             reparacion.setIdTipoVisita(new TipoVisita(2));
             reparacion.setObservacion("observaiocne prueba " + i);
-
+            reparacion.setTipoReporte("IMPRESORAS " + i);
+          //  reparacion.setTipoNotificacion("ASIGNACION ");
             //  System.out.println("ENTIDAD  == " + reparacion);
             enviarNotificacion(reparacion);
             System.out.println("                               ");
@@ -81,17 +82,51 @@ public class clasemain {
 
     }
 
-    public static <T> boolean enviarNotificacion(T objecto) throws JsonProcessingException, Exception {
-        String FMCurl = "https://fcm.googleapis.com/fcm/send";
-        ObjectMapper mapper = new ObjectMapper();
-        String DEVICE_ID = new clasemain().idDeviceDatabase();
-        String jsonNotification = mapper.writeValueAsString(objecto);
-        
-          System.out.println("DISPOSITIVO " + DEVICE_ID);
-            System.out.println("AUTH_KEY_FCM " + AUTH_KEY_FCM);
-            
-        System.out.println("JSONPARSED " + jsonNotification);
+    public static boolean enviarNotificacion(AsignacionReparacion as) {
         try {
+            String FMCurl = "https://fcm.googleapis.com/fcm/send";
+            ObjectMapper mapper = new ObjectMapper();
+            String DEVICE_ID = new clasemain().idDeviceDatabase();
+
+            AsignacionReparacion reparacion = new AsignacionReparacion();
+            reparacion.setId(as.getId());
+
+            /*  Cliente cliente = new Cliente();
+        cliente.setId(as.getIdClienteSucursal().getIdCliente().getId());
+        cliente.setCiudad(as.getIdClienteSucursal().getIdCliente().getCiudad());
+        cliente.setTelefono(as.getIdClienteSucursal().getIdCliente().getTelefono());
+        cliente.setTelefono2(as.getIdClienteSucursal().getIdCliente().getTelefono2());
+        cliente.setDireccion(as.getIdClienteSucursal().getDireccion());
+        cliente.setRuc(as.getIdClienteSucursal().getIdCliente().getRuc());
+        cliente.setCliente(as.getIdClienteSucursal().getIdCliente().getCliente());
+        cliente.setEmail(as.getIdClienteSucursal().getIdCliente().getEmail());
+
+        ClienteSucursal clienteSucursal = new ClienteSucursal();
+        clienteSucursal.setId(as.getIdClienteSucursal().getId());
+
+        clienteSucursal.setIdCliente(cliente);
+*/
+        reparacion.setProducto(as.getProducto());
+       // reparacion.setIdClienteSucursal(clienteSucursal);
+
+     /*   reparacion.setIdTipoVisita(as.getIdTipoVisita());
+        reparacion.setTipoNotificacion(as.getTipoNotificacion());
+        reparacion.setSerial(as.getSerial());
+        reparacion.setTipoReporte(as.getTipoReporte());
+        reparacion.setEstado(as.getEstado());
+        reparacion.setPrioridad(as.getPrioridad());
+        reparacion.setFechaInicioAtencion(as.getFechaInicioAtencion());
+        reparacion.setFechaFinAtencion(as.getFechaFinAtencion());
+        reparacion.setHoraInicioAtencion(as.getHoraInicioAtencion());
+        reparacion.setHoraFinAtencion(as.getHoraFinAtencion());*/
+            
+           // String jsonNotification = mapper.writeValueAsString(reparacion);
+            String jsonNotification = mapper.writeValueAsString(as);
+            System.out.println("DISPOSITIVO " + DEVICE_ID);
+            System.out.println("AUTH_KEY_FCM " + AUTH_KEY_FCM);
+
+            System.out.println("JSONPARSED " + jsonNotification);
+
             URL url = new URL(FMCurl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -125,7 +160,7 @@ public class clasemain {
                 response.append(inputLine);
             }
             in.close();
-            // System.out.println("Response: " + response); // <= ADD THIS
+            System.out.println("Response: " + response); // <= ADD THIS
 
             mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.toString());
