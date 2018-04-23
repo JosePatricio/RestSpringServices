@@ -28,4 +28,6 @@ public interface ProductoClienteReporteDAO {
 
     public ProductoClienteReporte getByIdProductoCliente(Integer idProductoCliente);
 
+    public List<ProductoClienteReporte> getByTipoReporte(String tipo);
+
 }

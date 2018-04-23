@@ -12,6 +12,7 @@ import com.innovaciones.reporte.model.Producto;
 import com.innovaciones.reporte.model.ProductoClienteReporte;
 import com.innovaciones.reporte.model.ProductoDetalleReporte;
 import com.innovaciones.reporte.model.Reporte;
+import com.innovaciones.reporte.model.ReporteGenericoItems;
 import com.innovaciones.reporte.model.Usuarios;
 import java.io.Serializable;
 import java.util.List;
@@ -135,12 +136,15 @@ public class DatosReporteDTO implements Serializable {
     @Setter
     private List<DetalleCatalogoReporte> lista12;
 
+    @Transient
+    @XmlElement(name = "itemsReporteGenerico")
+    @Getter
+    @Setter
+    private List<ReporteGenericoItems> itemsReporteGenerico;
+
     @Override
     public String toString() {
         return "DatosReporteDTO{" + "reporte=" + reporte + ", cliente=" + cliente + ", producto=" + producto + ", serie=" + serie + ", productoDetalleReporte=" + productoDetalleReporte + ", productoClienteReporte=" + productoClienteReporte + ", idClienteSucursal=" + idClienteSucursal + ", idTipoVisita=" + idTipoVisita + ", usuarios=" + usuarios + ", asignacionReparacion=" + asignacionReparacion + ", idProyecto=" + idProyecto + '}';
     }
-    
-    
-    
 
 }

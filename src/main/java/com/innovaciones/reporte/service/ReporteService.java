@@ -17,6 +17,7 @@ import com.innovaciones.reporte.model.Producto;
 import com.innovaciones.reporte.model.ProductoClienteReporte;
 import com.innovaciones.reporte.model.ProductoDetalleReporte;
 import com.innovaciones.reporte.model.Reporte;
+import com.innovaciones.reporte.model.ReporteGenericoItems;
 import com.innovaciones.reporte.model.Usuarios;
 import java.util.List;
 
@@ -73,4 +74,9 @@ public interface ReporteService {
     public boolean ingresoMasivoReportesEcu(List<DetalleReporteEcu911> reportes, Usuarios usuarios);
 
     public byte[] jasperReporte(int idReporte);
+
+    public void saveReporteReporteGenerico(DatosReporteDTO datosReporteDTO);
+
+    public void updateReporteReporteGenerico(DatosReporteDTO datosReporteDTO);
+
 }

@@ -67,7 +67,7 @@ public class ReporteServiceRest extends Utilities {
     public ResponseEntity<Void> saveAllReporteImpresoras(@RequestBody DatosReporteDTO datosReporteDTO, UriComponentsBuilder ucBuilder) {
         HttpHeaders hd = new HttpHeaders();
 
-         reporteService.saveAllReporteImpresoras(datosReporteDTO);
+        reporteService.saveAllReporteImpresoras(datosReporteDTO);
         hd.add("Access-Control-Allow-Origin", "*");
         hd.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
         hd.add("Access-Control-Allow-Headers", "Content-Type");
@@ -88,13 +88,46 @@ public class ReporteServiceRest extends Utilities {
         return new ResponseEntity<Void>(hd, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/saveReporteReporteGenerico/", method = RequestMethod.POST)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public ResponseEntity<Void> saveReporteReporteGenerico(@RequestBody DatosReporteDTO datosReporteDTO, UriComponentsBuilder ucBuilder) {
+        HttpHeaders hd = new HttpHeaders();
+
+        reporteService.saveReporteReporteGenerico(datosReporteDTO);
+        hd.add("Access-Control-Allow-Origin", "*");
+        hd.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+        hd.add("Access-Control-Allow-Headers", "Content-Type");
+
+        return new ResponseEntity<Void>(hd, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/updateReporteReporteGenerico/", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public ResponseEntity<Void> updateReporteReporteGenerico(@RequestBody DatosReporteDTO datosReporteDTO) {
+        HttpHeaders hd = new HttpHeaders();
+
+        reporteService.updateReporteReporteGenerico(datosReporteDTO);
+        hd.add("Access-Control-Allow-Origin", "*");
+        hd.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+        hd.add("Access-Control-Allow-Headers", "Content-Type");
+
+        return new ResponseEntity<Void>(hd, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/reportesBySubTipo/{subTipo}", method = RequestMethod.GET, produces = "application/json")
     //@CrossOrigin(origins = "*")
     public ResponseEntity<List<ReportesDTO>> reportesBySubTipo(@PathVariable("subTipo") String subTipo) {
         HttpHeaders hd = new HttpHeaders();
-        System.out.println("  TIPO  "+subTipo);
-        
+        System.out.println("  TIPO  " + subTipo);
+
         return new ResponseEntity<List<ReportesDTO>>(consultasService.reportesBySubTipo(subTipo), headers(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getByTipoReporte/{tipo}", method = RequestMethod.GET, produces = "application/json")
+    //@CrossOrigin(origins = "*")
+    public ResponseEntity<List<ProductoClienteReporte>> getByTipoReporte(@PathVariable("subTipo") String tipo) {
+        HttpHeaders hd = new HttpHeaders();
+        return new ResponseEntity<List<ProductoClienteReporte>>(productoClienteReporteService.getByTipoReporte(tipo), headers(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getDatosReporteDTO", method = RequestMethod.GET, produces = "application/json")

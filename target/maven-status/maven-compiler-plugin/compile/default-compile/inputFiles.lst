@@ -2,6 +2,7 @@ C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\P
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\util\clasemain.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\util\InicioGarantia.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\ProveedorServiceImpl.java
+C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\ReporteGenericoItemsDAOImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\CabeceraCatalogoReporteDAOImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\NotificacionDAOImp.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\UnidadMedidaDAO.java
@@ -9,6 +10,7 @@ C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\C
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\CabeceraEgresoDAOImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\DTO\dashboard\ResumenAsignacionesPorTecnicoDTO.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\CabeceraCatalogoReporte.java
+C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\ReporteGenericoItems.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\UbicacionProductoBodegaDAO.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\ProductoModelo.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\DetalleEgresoService.java
@@ -20,6 +22,7 @@ C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\D
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\ProductoService.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\UsuariosDAOImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\TipoProveedorService.java
+C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\ReporteGenericoItemsServiceImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\DetalleReporteEcu911DAO.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\ReporteServiceImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\serviceRest\AsignacionReparacionServiceRest.java
@@ -49,6 +52,7 @@ C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\T
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\DetalleEgresoDAOImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\ConsultasDAOImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\AsignacionReparacion.java
+C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\ReporteGenericoItemsDAO.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\TipoDocumentoProveedor.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\CabeceraCatalogoReporteService.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\TipoVisitaService.java
@@ -250,6 +254,7 @@ C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\M
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\DetalleInventarioServiceImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\GarantiaCondicion.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\DetalleReporteInstalacionNuevaService.java
+C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\ReporteGenericoItemsService.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\UsuarioRolesDAOImpl.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\BodegaDAO.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\ClienteServiceImpl.java

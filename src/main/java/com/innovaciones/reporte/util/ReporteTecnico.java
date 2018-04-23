@@ -273,6 +273,10 @@ public class ReporteTecnico extends Utilities implements Serializable {
                 parametros.putAll(loadParametersReportesRepuestosByte(productoClienteReporte, detalleCatalogoReporteService, cabeceraCatalogoReporteService));
             }
 
+            if (productoClienteReporte.getIdReporte().getSubtipo().startsWith(Enums.TIPO_REPORTE_GENERICO.getValue())) {
+                parametros.putAll(loadParametersReportesRepuestosByte(productoClienteReporte, detalleCatalogoReporteService, cabeceraCatalogoReporteService));
+            }
+
         } catch (Exception e) {
             System.out.println("Error cargar Parametros " + e.getMessage());
             e.getStackTrace();
@@ -282,6 +286,8 @@ public class ReporteTecnico extends Utilities implements Serializable {
 
     }
 
+    
+     
     public static Map<String, Object> loadParametersReportesRepuestosByte(ProductoClienteReporte productoClienteReporte,
             DetalleCatalogoReporteService detalleCatalogoReporteService,
             CabeceraCatalogoReporteService cabeceraCatalogoReporteService) {

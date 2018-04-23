@@ -70,6 +70,9 @@ public class ProductoClienteReporte implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProductoClienteReporte", fetch = FetchType.EAGER)
     private List<ReporteMantenimiento> reporteMantenimientoList;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProductoClienteReporte", fetch = FetchType.EAGER)
+    private List<ReporteGenericoItems> reporteGenericoItemsList;
+
     @JoinColumn(name = "id_reporte", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Reporte idReporte;
@@ -296,6 +299,15 @@ public class ProductoClienteReporte implements Serializable {
 
     public void setIdProducto(Producto idProducto) {
         this.idProducto = idProducto;
+    }
+
+    @XmlTransient
+    public List<ReporteGenericoItems> getReporteGenericoItemsList() {
+        return reporteGenericoItemsList;
+    }
+
+    public void setReporteGenericoItemsList(List<ReporteGenericoItems> reporteGenericoItemsList) {
+        this.reporteGenericoItemsList = reporteGenericoItemsList;
     }
 
     @Override

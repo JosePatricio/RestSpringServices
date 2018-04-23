@@ -28,4 +28,6 @@ public interface ProductoClienteReporteService {
     public List<ProductoClienteReporte> getBySerial(String serial);
 
     public ProductoClienteReporte getByIdProductoCliente(Integer idProductoCliente);
+    
+     public List<ProductoClienteReporte> getByTipoReporte(String tipo);
 }

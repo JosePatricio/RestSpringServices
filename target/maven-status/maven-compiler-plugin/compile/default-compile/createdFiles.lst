@@ -1,6 +1,7 @@
 com\innovaciones\reporte\dao\DashboardDAO.class
 com\innovaciones\reporte\dao\ProductoRepuestoReporteDAO.class
 com\innovaciones\reporte\service\ProyectosService.class
+com\innovaciones\reporte\dao\ReporteGenericoItemsDAO.class
 com\innovaciones\reporte\util\InicioGarantiaConverter.class
 com\innovaciones\reporte\util\Utilities.class
 com\innovaciones\reporte\model\DetalleReporteTemporal.class
@@ -143,6 +144,7 @@ com\innovaciones\reporte\dao\ReporteMantenimientoDAOImpl.class
 com\innovaciones\reporte\model\Garantia.class
 com\innovaciones\reporte\service\CicloMantenimientoService.class
 com\innovaciones\reporte\dao\CicloMantenimientoDAO.class
+com\innovaciones\reporte\model\ReporteGenericoItems.class
 com\innovaciones\reporte\model\DTO\dashboard\ResumenAsignacionesPorTecnicoDTO.class
 com\innovaciones\reporte\model\SolucionReclamoGarantia.class
 com\innovaciones\reporte\model\ProductoRepuestoReporte.class
@@ -165,6 +167,7 @@ com\innovaciones\reporte\dao\TipoProveedorDAOImpl.class
 com\innovaciones\reporte\dao\DetalleEgresoInventarioDAO.class
 com\innovaciones\reporte\dao\ModeloDAO.class
 com\innovaciones\reporte\service\TipoDocumentoProveedorService.class
+com\innovaciones\reporte\dao\ReporteGenericoItemsDAOImpl.class
 com\innovaciones\reporte\service\TipoProductoServiceImpl.class
 com\innovaciones\reporte\dao\ModeloDAOImpl.class
 com\innovaciones\reporte\dao\CabeceraCatalogoReporteDAO.class
@@ -174,6 +177,7 @@ com\innovaciones\reporte\model\CicloMantenimiento.class
 com\innovaciones\reporte\serviceRest\AsignacionReparacionServiceRest.class
 com\innovaciones\reporte\model\DTO\ReportesDTO.class
 com\innovaciones\reporte\model\ReporteMantenimiento.class
+com\innovaciones\reporte\service\ReporteGenericoItemsServiceImpl.class
 com\innovaciones\reporte\dao\UbicacionProductoBodegaDAO.class
 com\innovaciones\reporte\service\TipoVisitaServiceImpl.class
 com\innovaciones\reporte\serviceRest\ReporteServiceRest.class
@@ -237,6 +241,7 @@ com\innovaciones\reporte\service\ProductoClienteReporteService.class
 com\innovaciones\reporte\service\ReporteMantenimientoService.class
 com\innovaciones\reporte\service\DetalleReporteInstalacionNuevaServiceImpl.class
 com\innovaciones\reporte\dao\TipoProveedorDAO.class
+com\innovaciones\reporte\service\ReporteGenericoItemsService.class
 com\innovaciones\reporte\util\EstadosEnum.class
 com\innovaciones\reporte\model\Modelo.class
 com\innovaciones\reporte\serviceRest\Main.class

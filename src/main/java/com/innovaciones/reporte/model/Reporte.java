@@ -77,7 +77,8 @@ public class Reporte implements Serializable {
 
     @Column(name = "nombre_cliente")
     private String nombreCliente;
-
+@Column(name = "etiqueta_sintomas_equipo")
+    private String etiquetaSintomasEquipo;
     @Lob
     @Column(name = "firma_cliente")
     private String firmaCliente;
@@ -154,6 +155,15 @@ public class Reporte implements Serializable {
         return id;
     }
 
+    public String getEtiquetaSintomasEquipo() {
+        return etiquetaSintomasEquipo;
+    }
+
+    public void setEtiquetaSintomasEquipo(String etiquetaSintomasEquipo) {
+        this.etiquetaSintomasEquipo = etiquetaSintomasEquipo;
+    }
+
+    
     public void setId(Integer id) {
         this.id = id;
     }

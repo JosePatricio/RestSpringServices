@@ -53,10 +53,8 @@ public class ClienteDAOImpl implements ClienteDAO, Serializable {
     @Override
     @Transactional
     public List<Cliente> getClientes() {
-        System.out.println("ENTROO DATO  getClientes");
         List<Cliente> LISTAdAO = sessionFactory.getCurrentSession().createQuery("from Cliente c Order by c.cliente")
                 .list();
-        System.out.println("SALIOO   DATO  getClientes  " + LISTAdAO.size());
         return LISTAdAO;
     }
 

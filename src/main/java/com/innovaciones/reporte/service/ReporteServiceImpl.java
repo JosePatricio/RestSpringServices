@@ -21,6 +21,7 @@ import com.innovaciones.reporte.model.ProductoDetalleReporte;
 import com.innovaciones.reporte.model.ProductoRepuestoReporte;
 import com.innovaciones.reporte.model.Proyectos;
 import com.innovaciones.reporte.model.Reporte;
+import com.innovaciones.reporte.model.ReporteGenericoItems;
 import com.innovaciones.reporte.model.ReporteMantenimiento;
 import com.innovaciones.reporte.model.TipoVisita;
 import com.innovaciones.reporte.model.Usuarios;
@@ -134,12 +135,20 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
 
     @Getter
     @Setter
+    @ManagedProperty("#{reporteGenericoItemsService}")
+    private ReporteGenericoItemsService reporteGenericoItemsService;
+
+    @Getter
+    @Setter
     @ManagedProperty("#{cabeceraCatalogoReporteService}")
     private CabeceraCatalogoReporteService cabeceraCatalogoReporteService;
 
     private ProductoClienteReporte globalProductoClienteReporte;
     private ReporteMantenimiento mantenimiento;
     private ReporteMantenimiento mantenimientoAux;
+
+    private ReporteGenericoItems reporteGenericoItem;
+    private ReporteGenericoItems reporteGenericoItemAux;
 
     @Override
     @Transactional
@@ -181,10 +190,6 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
         newReporte.setFechaCreacion(new Date());
         newReporte.setUsuarioCreacion(usuario.getUsuario());
 
-        System.out.println(" GUARDADO CORRECTAMENTEO TOTOT SWEDE ");
-
-        System.out.println("  llego  " + reporte);
-        System.out.println("  nuevo  " + newReporte);
         newReporte = this.save((Reporte) toUpperCaseStrings(newReporte));
 
         DetalleInventarioProducto searchDetalleInventarioProducto = new DetalleInventarioProducto();
@@ -213,7 +218,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
             newProductoClienteReporte.setIdProyecto(new Proyectos(idProyecto));
         }
 
-        globalProductoClienteReporte = (ProductoClienteReporte) toUpperCaseStrings(productoClienteReporteService.save(newProductoClienteReporte));
+        globalProductoClienteReporte = (productoClienteReporteService.save(newProductoClienteReporte));
 
         if (asignacionReparacion != null && asignacionReparacion.getId() != null) {
             AsignacionReparacion newAsignacionReparacion = new AsignacionReparacion();
@@ -227,8 +232,6 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
         this.saveRepuestosReportePreventivos(globalProductoClienteReporte, listPreventivos);
         this.saveRepuestosReporteCorrectivos(globalProductoClienteReporte, listCorrectivos);
 
-        System.out.println("SE GUARDO NTODO ");
-
     }
 
     @Override
@@ -237,8 +240,6 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
 
         List<List<DetalleCatalogoReporte>> listCorrectivos = new ArrayList<>();
         List<List<DetalleCatalogoReporte>> listPreventivos = new ArrayList<>();
-
-        System.out.println("SUBTIPO ES " + datosReporteDTO.getReporte().getSubtipo());
 
         if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_DIAGNOSTICO.getValue()) || datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_REPARACION.getValue())) {
 
@@ -357,38 +358,108 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
         List<List<DetalleCatalogoReporte>> listCorrectivos = new ArrayList<>();
         List<List<DetalleCatalogoReporte>> listPreventivos = new ArrayList<>();
 
-        if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
-            listPreventivos.add(datosReporteDTO.getLista1());
+        if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_DIAGNOSTICO.getValue()) || datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_REPARACION.getValue())) {
+
+            if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista1());
+            }
+            if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista2());
+            }
+            if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista3());
+            }
+            if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista4());
+            }
+
+            if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista5());
+            }
+            if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista6());
+            }
+            if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista7());
+            }
+            if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista7());
+            }
+            if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista7());
+            }
+            if (datosReporteDTO.getLista8() != null && !datosReporteDTO.getLista8().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista8());
+            }
+            if (datosReporteDTO.getLista9() != null && !datosReporteDTO.getLista9().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista9());
+            }
         }
-        if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
-            listPreventivos.add(datosReporteDTO.getLista2());
+
+        if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_SCANNERS.getValue())) {
+            if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista1());
+            }
+            if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista2());
+            }
+            if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista3());
+            }
+
+            if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista4());
+            }
+            if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista5());
+            }
+            if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista6());
+            }
         }
-        if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
-            listPreventivos.add(datosReporteDTO.getLista3());
+
+        if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_MONITORES.getValue())) {
+            if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista1());
+            }
+            if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista2());
+            }
+            if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista3());
+            }
+
+            if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista4());
+            }
+            if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista5());
+            }
+            if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista6());
+            }
         }
-        if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
-            listPreventivos.add(datosReporteDTO.getLista4());
-        }
-        if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista5());
-        }
-        if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista6());
-        }
-        if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista7());
-        }
-        if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista7());
-        }
-        if (datosReporteDTO.getLista7() != null && !datosReporteDTO.getLista7().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista7());
-        }
-        if (datosReporteDTO.getLista8() != null && !datosReporteDTO.getLista8().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista8());
-        }
-        if (datosReporteDTO.getLista9() != null && !datosReporteDTO.getLista9().isEmpty()) {
-            listCorrectivos.add(datosReporteDTO.getLista9());
+
+        if (datosReporteDTO.getReporte().getSubtipo().equals(Enums.TIPO_REPORTE_TRITURADORAS.getValue())) {
+            if (datosReporteDTO.getLista1() != null && !datosReporteDTO.getLista1().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista1());
+            }
+            if (datosReporteDTO.getLista2() != null && !datosReporteDTO.getLista2().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista2());
+            }
+            if (datosReporteDTO.getLista3() != null && !datosReporteDTO.getLista3().isEmpty()) {
+                listPreventivos.add(datosReporteDTO.getLista3());
+            }
+
+            if (datosReporteDTO.getLista4() != null && !datosReporteDTO.getLista4().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista4());
+            }
+            if (datosReporteDTO.getLista5() != null && !datosReporteDTO.getLista5().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista5());
+            }
+            if (datosReporteDTO.getLista6() != null && !datosReporteDTO.getLista6().isEmpty()) {
+                listCorrectivos.add(datosReporteDTO.getLista6());
+            }
         }
 
         this.updateAllReporte(datosReporteDTO.getReporte(), datosReporteDTO.getCliente(), datosReporteDTO.getProducto(),
@@ -483,7 +554,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
         newProductoClienteReporte.setIdProductoDetalleReporte(newDetalleReporte);
         newProductoClienteReporte.setIdClienteSucursal(new ClienteSucursal(idClienteSucursal));
         newProductoClienteReporte.setReporteMantenimientoList(new ArrayList<>());
-        globalProductoClienteReporte = productoClienteReporteService.save((ProductoClienteReporte) toUpperCaseStrings(newProductoClienteReporte));
+        globalProductoClienteReporte = productoClienteReporteService.save(newProductoClienteReporte);
 
         this.saveRepuestosReporteCorrectivos(globalProductoClienteReporte, listCorrectivos);
         this.saveRepuestosReportePreventivos(globalProductoClienteReporte, listPreventivos);
@@ -515,7 +586,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
             newProductoClienteReporte.setIdProyecto(new Proyectos(idProyecto));
         }
 
-        globalProductoClienteReporte = productoClienteReporteService.update((ProductoClienteReporte) toUpperCaseStrings(newProductoClienteReporte));
+        globalProductoClienteReporte = productoClienteReporteService.update(newProductoClienteReporte);
 
         this.updateListReporteMantenimientoPreventivo(productoClienteReporte, listPreventivos);
         this.updateListReporteMantenimientoCorrectivo(productoClienteReporte, listCorrectivos);
@@ -576,7 +647,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
 
             newProductoClienteReporte.setIdClienteSucursal(new ClienteSucursal(idClienteSucursal));
             newProductoClienteReporte
-                    = productoClienteReporteService.saveOrUpdateProductoClienteReporte((ProductoClienteReporte) toUpperCaseStrings(newProductoClienteReporte));
+                    = productoClienteReporteService.saveOrUpdateProductoClienteReporte(newProductoClienteReporte);
 
             List<List<DetalleCatalogoReporte>> catalogoReportes = new ArrayList<>();
             catalogoReportes.add(listPreguntas);
@@ -610,7 +681,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
 
             newProductoClienteReporte.setIdDetalleReporteTemporal(newDetalleReporteTemporal);
 
-            newProductoClienteReporte = productoClienteReporteService.saveOrUpdateProductoClienteReporte((ProductoClienteReporte) toUpperCaseStrings(newProductoClienteReporte));
+            newProductoClienteReporte = productoClienteReporteService.saveOrUpdateProductoClienteReporte(newProductoClienteReporte);
 
         }
 
@@ -657,7 +728,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
             newProductoClienteReporte.setIdDetalleReporteInstalacionNueva(newDetalleReporteInstalacionNueva);
             newProductoClienteReporte.setIdClienteSucursal(new ClienteSucursal(idClienteSucursal));
             newProductoClienteReporte
-                    = productoClienteReporteService.update((ProductoClienteReporte) toUpperCaseStrings(newProductoClienteReporte));
+                    = productoClienteReporteService.update(newProductoClienteReporte);
 
             List<List<DetalleCatalogoReporte>> catalogoReportes = new ArrayList<>();
             catalogoReportes.add(listPreguntas);
@@ -693,7 +764,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
             updateDetalleReporteTemporal.setIdClienteSucursal(new ClienteSucursal(idClienteSucursal2));
 
             updateDetalleReporteTemporal = detalleReporteTemporalService.updateDetalleReporteTemporal((DetalleReporteTemporal) toUpperCaseStrings(newDetalleReporteTemporal));
-            newProductoClienteReporte = productoClienteReporteService.update((ProductoClienteReporte) toUpperCaseStrings(newProductoClienteReporte));
+            newProductoClienteReporte = productoClienteReporteService.update(newProductoClienteReporte);
 
         }
 
@@ -723,7 +794,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
             newProductoClienteReporte.setIdProyecto(new Proyectos(idProyecto));
         }
 
-        globalProductoClienteReporte = productoClienteReporteService.save((ProductoClienteReporte) toUpperCaseStrings(newProductoClienteReporte));
+        globalProductoClienteReporte = productoClienteReporteService.save(newProductoClienteReporte);
 
         DetalleReporteEcu911 newDetalleReporteEcu9111 = new DetalleReporteEcu911();
         newDetalleReporteEcu9111 = detalleReporteEcu911;
@@ -755,7 +826,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
             updatedProductoClienteReporte.setIdProyecto(new Proyectos(idProyecto));
         }
 
-        globalProductoClienteReporte = productoClienteReporteService.update((ProductoClienteReporte) toUpperCaseStrings(updatedProductoClienteReporte));
+        globalProductoClienteReporte = productoClienteReporteService.update(updatedProductoClienteReporte);
 
         DetalleReporteEcu911 updatedDetalleReporteEcu9111 = new DetalleReporteEcu911();
         updatedDetalleReporteEcu9111 = detalleReporteEcu911;
@@ -806,6 +877,24 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
         }
     }
 
+    @Override
+    @Transactional
+    public void saveReporteReporteGenerico(DatosReporteDTO datosReporteDTO) {
+
+        this.saveReporteReporteGenerico(datosReporteDTO.getReporte(), datosReporteDTO.getCliente(), datosReporteDTO.getProducto(), datosReporteDTO.getSerie(), datosReporteDTO.getProductoDetalleReporte(),
+                datosReporteDTO.getProductoClienteReporte(), datosReporteDTO.getIdClienteSucursal(), datosReporteDTO.getIdTipoVisita(), datosReporteDTO.getUsuarios(), datosReporteDTO.getAsignacionReparacion(),
+                datosReporteDTO.getIdProyecto(), datosReporteDTO.getItemsReporteGenerico());
+
+    }
+
+    @Override
+    @Transactional
+    public void updateReporteReporteGenerico(DatosReporteDTO datosReporteDTO) {
+        this.updateReporteReporteGenerico(datosReporteDTO.getReporte(), datosReporteDTO.getCliente(), datosReporteDTO.getProducto(), datosReporteDTO.getSerie(), datosReporteDTO.getProductoDetalleReporte(),
+                datosReporteDTO.getProductoClienteReporte(), datosReporteDTO.getIdClienteSucursal(), datosReporteDTO.getIdTipoVisita(), datosReporteDTO.getUsuarios(), datosReporteDTO.getAsignacionReparacion(),
+                datosReporteDTO.getIdProyecto(), datosReporteDTO.getItemsReporteGenerico());
+    }
+
     private void saveRepuestosReporteCorrectivos(ProductoClienteReporte productoClienteReporte, List<List<DetalleCatalogoReporte>> list) {
 
         list.forEach((List<DetalleCatalogoReporte> lista) -> {
@@ -842,52 +931,25 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
     }
 
     private void updateListReporteMantenimientoPreventivo(ProductoClienteReporte productoClienteReporte, List<List<DetalleCatalogoReporte>> list) {
-        for (List<DetalleCatalogoReporte> list1 : list) {
-            for (DetalleCatalogoReporte detalleCatalogoReporte : list1) {
-                System.out.println("detalleCatalogoReporte == " + detalleCatalogoReporte);
-            }
-            System.out.println("***************************");
-            System.out.println("**************|*************");
-        }
 
-        for (ReporteMantenimiento reporteMantenimiento : productoClienteReporte.getReporteMantenimientoList()) {
-            if (reporteMantenimiento.getIdDetalleCatalogoReporte() != null) {
-                System.out.println("reporteMantenimiento= " + reporteMantenimiento);
-            }
-
-        }
-
-        System.out.println("***********|****************");
-        System.out.println("***************************");
         list.forEach((List<DetalleCatalogoReporte> lista) -> {
             lista.stream().filter((DetalleCatalogoReporte catalogoReporte) -> catalogoReporte.isSeleccion())
                     .forEach((DetalleCatalogoReporte catalogoReporte) -> {
 
                         mantenimientoAux = new ReporteMantenimiento();
-                        System.out.println("A MOSTAR ID REPORTE ");
-                        System.out.println(catalogoReporte.getIdReporteMantenimiento() + " , BUSQUEDA ");
 
                         mantenimientoAux = this.containsIdReporteMantenimiento(productoClienteReporte.getReporteMantenimientoList(), catalogoReporte.getIdReporteMantenimiento());
-                        System.out.println("BUSCADO = " + mantenimientoAux);
 
                         mantenimiento = new ReporteMantenimiento();
                         mantenimiento.setEstado(Boolean.TRUE);
 
-                        System.out.println("CONDICION  " + (mantenimientoAux != null));
                         if (mantenimientoAux != null) {
-                            System.out.println("ENTRO NO ES NULO");
-
-                            System.out.println(" A SETEAR   mantenimiento = mantenimientoAux");
 
                             mantenimiento = mantenimientoAux;
-                            System.out.println("A SETEAR  " + catalogoReporte);
                             mantenimiento.setIdDetalleCatalogoReporte(catalogoReporte);
                             mantenimiento.setIdProductoRepuestoReporte(new ProductoRepuestoReporte());
-                            System.out.println("SETEADO   " + mantenimiento);
                             mantenimiento = reporteMantenimientoService.update(mantenimiento);
-                            System.out.println("ACTUALIZADO");
                         } else {
-                            System.out.println("A INGRESAR ");
                             mantenimiento.setIdDetalleCatalogoReporte(catalogoReporte);
                             mantenimiento.setIdProductoClienteReporte(productoClienteReporte);
                             mantenimiento.setIdProductoRepuestoReporte(new ProductoRepuestoReporte());
@@ -905,9 +967,7 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
 
                         if (mantenimientoAux != null) {
                             mantenimiento = mantenimientoAux;
-                            System.out.println("ELIMINAR mantenimiento " + mantenimiento);
                             reporteMantenimientoService.eliminar(mantenimientoAux);
-                            System.out.println("ELIMINADO mantenimiento " + mantenimiento);
 
                         }
                     });
@@ -1038,6 +1098,143 @@ public class ReporteServiceImpl extends Utilities implements ReporteService, Ser
 
         return bytes;
 
+    }
+
+    @Transactional
+    public void saveReporteReporteGenerico(Reporte reporte, Cliente cliente, Producto producto, String serie, ProductoDetalleReporte productoDetalleReporte, ProductoClienteReporte productoClienteReporte, Integer idClienteSucursal, Integer idTipoVisita, Usuarios usuario, AsignacionReparacion asignacionReparacion, Integer idProyecto, List<ReporteGenericoItems> items) {
+        Reporte newReporte = new Reporte();
+        newReporte = reporte;
+        newReporte.setIdVisita(new TipoVisita(idTipoVisita));
+        newReporte.setIdUsuario(usuario);
+        newReporte.setFecha(new Date());
+        newReporte.setFechaCreacion(new Date());
+        newReporte.setUsuarioCreacion(usuario.getUsuario());
+
+        newReporte = this.save((Reporte) toUpperCaseStrings(newReporte));
+        DetalleInventarioProducto searchDetalleInventarioProducto = new DetalleInventarioProducto();
+        searchDetalleInventarioProducto = detalleInventarioProductoService.getBySerial(serie);
+        boolean existeDetalleInventarioProducto = (searchDetalleInventarioProducto == null);
+        ProductoClienteReporte newProductoClienteReporte = new ProductoClienteReporte();
+
+        newProductoClienteReporte = productoClienteReporte;
+
+        if (existeDetalleInventarioProducto) {
+            searchDetalleInventarioProducto = null;
+        }
+
+        newProductoClienteReporte.setIdDetalleInventarioProducto(searchDetalleInventarioProducto);
+        newProductoClienteReporte.setIdReporte(newReporte);
+        newProductoClienteReporte.setIdCliente(cliente);
+        newProductoClienteReporte.setSerie(serie);
+        newProductoClienteReporte.setIdProducto(producto);
+        newProductoClienteReporte.setIdProductoDetalleReporte(productoDetalleReporteService.add(productoDetalleReporte));
+
+        newProductoClienteReporte.setIdClienteSucursal(new ClienteSucursal(idClienteSucursal));
+        if (idProyecto != null) {
+            newProductoClienteReporte.setIdProyecto(new Proyectos(idProyecto));
+        }
+
+        globalProductoClienteReporte = (productoClienteReporteService.save(newProductoClienteReporte));
+
+        if (asignacionReparacion != null && asignacionReparacion.getId() != null) {
+            AsignacionReparacion newAsignacionReparacion = new AsignacionReparacion();
+
+            newAsignacionReparacion = asignacionReparacion;
+            newAsignacionReparacion.setIdReporte(newReporte.getId());
+            newAsignacionReparacion.setEstado(newReporte.getEstado());
+            asignacionReparacionService.addAsignacionReparacion(asignacionReparacion);
+        }
+
+        this.saveItemsReporteGenerico(globalProductoClienteReporte, items);
+
+    }
+
+    @Transactional
+    public void updateReporteReporteGenerico(Reporte reporte, Cliente cliente, Producto producto, String serie, ProductoDetalleReporte productoDetalleReporte, ProductoClienteReporte productoClienteReporte, Integer idClienteSucursal, Integer idTipoVisita, Usuarios usuario, AsignacionReparacion asignacionReparacion, Integer idProyecto, List<ReporteGenericoItems> items) {
+        globalProductoClienteReporte = new ProductoClienteReporte();
+        Reporte newReporte = new Reporte();
+        newReporte = reporte;
+        newReporte.setIdVisita(new TipoVisita(idTipoVisita));
+        newReporte.setIdUsuario(usuario);
+        newReporte.setFechaModificacion(new Date());
+        newReporte.setUsuarioModificacion(usuario.getUsuario());
+        newReporte = this.update((Reporte) toUpperCaseStrings(newReporte));
+
+        ProductoClienteReporte newProductoClienteReporte = new ProductoClienteReporte();
+        newProductoClienteReporte = productoClienteReporte;
+        newProductoClienteReporte.setIdReporte(newReporte);
+        newProductoClienteReporte.setIdProducto(producto);
+        newProductoClienteReporte.setIdProductoDetalleReporte(productoDetalleReporteService.update(productoDetalleReporte));
+        newProductoClienteReporte.setIdClienteSucursal(new ClienteSucursal(idClienteSucursal));
+        if (idProyecto != null) {
+            newProductoClienteReporte.setIdProyecto(new Proyectos(idProyecto));
+        }
+
+        globalProductoClienteReporte = productoClienteReporteService.update(newProductoClienteReporte);
+
+        this.updateItemsReporteGenerico(globalProductoClienteReporte, items);
+
+    }
+
+    private void saveItemsReporteGenerico(ProductoClienteReporte productoClienteReporte, List<ReporteGenericoItems> items) {
+        items.forEach((ReporteGenericoItems reporteGenericoItem) -> {
+            ReporteGenericoItems re = new ReporteGenericoItems();
+            re = reporteGenericoItem;
+            re.setIdProductoClienteReporte(productoClienteReporte);
+            reporteGenericoItemsService.save(re);
+        });
+    }
+
+    private void updateItemsReporteGenerico(ProductoClienteReporte productoClienteReporte, List<ReporteGenericoItems> currentList) {
+        for (ReporteGenericoItems reporteGenericoItems : currentList) {
+            System.out.println("reporteGenericoItems   " + reporteGenericoItems);
+        }
+        System.out.println(" **************************   ");
+
+        currentList.stream().filter((ReporteGenericoItems reporteGenericoItem) -> reporteGenericoItem.isSeleccion()).forEach((ReporteGenericoItems catalogoReporte) -> {
+            reporteGenericoItemAux = new ReporteGenericoItems();
+
+            reporteGenericoItemAux = this.containsIdReporteGenericoItems(productoClienteReporte.getReporteGenericoItemsList(), reporteGenericoItem.getId());
+
+            reporteGenericoItem = new ReporteGenericoItems();
+            reporteGenericoItem.setEstado(Boolean.TRUE);
+
+            if (mantenimientoAux != null) {
+
+                reporteGenericoItem = reporteGenericoItemAux;
+                reporteGenericoItem = reporteGenericoItemsService.update(reporteGenericoItem);
+            } else {
+
+                reporteGenericoItem = reporteGenericoItemsService.save(catalogoReporte);
+            }
+
+        });
+
+        currentList.stream().filter((ReporteGenericoItems reporteGenericoItem) -> !reporteGenericoItem.isSeleccion()).forEach((ReporteGenericoItems catalogoReporte) -> {
+
+            reporteGenericoItem = new ReporteGenericoItems();
+            reporteGenericoItemAux = new ReporteGenericoItems();
+            reporteGenericoItemAux = this.containsIdReporteGenericoItems(productoClienteReporte.getReporteGenericoItemsList(), reporteGenericoItem.getId());
+
+            if (reporteGenericoItemAux != null) {
+                reporteGenericoItem = reporteGenericoItemAux;
+                reporteGenericoItemsService.eliminar(reporteGenericoItem);
+
+            }
+        });
+
+    }
+
+    private ReporteGenericoItems containsIdReporteGenericoItems(List<ReporteGenericoItems> list, Integer id) {
+        ReporteGenericoItems mantenimiento;
+        for (ReporteGenericoItems object : list) {
+            if (id != null && object.getId().intValue() == id.intValue() && object.getEstado() == Boolean.TRUE) {
+                mantenimiento = new ReporteGenericoItems();
+                mantenimiento = object;
+                return mantenimiento;
+            }
+        }
+        return null;
     }
 
 }

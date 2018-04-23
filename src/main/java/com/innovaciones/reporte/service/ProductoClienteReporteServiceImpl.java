@@ -33,7 +33,6 @@ public class ProductoClienteReporteServiceImpl implements ProductoClienteReporte
         return productoClienteReporteDAO.saveOrUpdateProductoClienteReporte(productoClienteReporte);
     }
 
-    
     @Override
     @Transactional
     public ProductoClienteReporte update(ProductoClienteReporte productoClienteReporte) {
@@ -69,6 +68,12 @@ public class ProductoClienteReporteServiceImpl implements ProductoClienteReporte
     @Transactional
     public ProductoClienteReporte getByIdProductoCliente(Integer idProductoCliente) {
         return productoClienteReporteDAO.getByIdProductoCliente(idProductoCliente);
+    }
+
+    @Override
+    @Transactional
+    public List<ProductoClienteReporte> getByTipoReporte(String tipo) {
+        return productoClienteReporteDAO.getByTipoReporte(tipo);
     }
 
 }

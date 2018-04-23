@@ -82,7 +82,7 @@ public class ProductoClienteReporteDAOImpl implements ProductoClienteReporteDAO,
         Transaction t = session.beginTransaction();
 
         String hql = "update ProductoClienteReporte set serie=:serie ,atencion=:atencion , departamento=:departamento , ciudad=:ciudad , ipEquipo=:ipEquipo"
-                + " , puertoUsb=:puertoUsb , idClienteSucursal.id=:idClienteSucursal , idProducto.id=:idProducto , idProyecto.id=:idProyecto where id=:id";
+                + " , puertoUsb=:puertoUsb , idClienteSucursal.id=:idClienteSucursal , idProducto.id=:idProducto , idProyecto.id=:idProyecto, correoAtencion=:correoAtencion where id=:id";
 
         Query query = session.createQuery(hql);
         query.setParameter("serie", productoClienteReporte.getSerie());
@@ -94,6 +94,7 @@ public class ProductoClienteReporteDAOImpl implements ProductoClienteReporteDAO,
         query.setParameter("idClienteSucursal", productoClienteReporte.getIdClienteSucursal().getId());
         query.setParameter("idProducto", productoClienteReporte.getIdProducto().getId());
         query.setParameter("idProyecto", productoClienteReporte.getIdProyecto().getId());
+        query.setParameter("correoAtencion", productoClienteReporte.getCorreoAtencion());
         query.setParameter("id", productoClienteReporte.getId());
 
         int rr = query.executeUpdate();
@@ -141,6 +142,14 @@ public class ProductoClienteReporteDAOImpl implements ProductoClienteReporteDAO,
                         .uniqueResult();
 
         return productoClienteReporte != null ? productoClienteReporte : null;
+    }
+
+    @Override
+    public List<ProductoClienteReporte> getByTipoReporte(String tipo) {
+
+        return sessionFactory.getCurrentSession().
+                createQuery("p FROM ProductoClienteReporte p WHERE p.idReporte.tipo='" + tipo + "' ORDER BY p.idReporte.fechaCreacion DESC")
+                .list();
     }
 
 }

@@ -77,6 +77,7 @@
                 <beans:value>com.innovaciones.reporte.model.GarantiaCondicion</beans:value>
                 <beans:value>com.innovaciones.reporte.model.UbicacionProductoBodega</beans:value>
                 <beans:value>com.innovaciones.reporte.model.GarantiaAsignada</beans:value>
+                <beans:value>com.innovaciones.reporte.model.ReporteGenericoItems</beans:value>
 
             </beans:list>
         </beans:property>
@@ -276,7 +277,7 @@
         <beans:property name="clienteSucursalService" ref="clienteSucursalService"/>
         <beans:property name="tipoVisitaService" ref="tipoVisitaService"/>
         <beans:property name="cabeceraCatalogoReporteService" ref="cabeceraCatalogoReporteService"/>
-        
+        <beans:property name="reporteGenericoItemsService" ref="reporteGenericoItemsService"/>
         
         <beans:property name="consultasService" ref="consultasService"/>
        
@@ -434,6 +435,14 @@
         <beans:property name="ubicacionProductoBodegaDAO" ref="ubicacionProductoBodegaDAO"/>
     </beans:bean>
 
+
+
+    <beans:bean class="com.innovaciones.reporte.dao.ReporteGenericoItemsDAOImpl" id="reporteGenericoItemsDAO">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean class="com.innovaciones.reporte.service.ReporteGenericoItemsServiceImpl" id="reporteGenericoItemsService">
+        <beans:property name="reporteGenericoItemsDAO" ref="reporteGenericoItemsDAO"/>
+    </beans:bean>
 
     <context:component-scan base-package="com.innovaciones.reporte"/>
 
