@@ -63,6 +63,7 @@ com\innovaciones\reporte\dao\TipoDocumentoProveedorDAOImpl.class
 com\innovaciones\reporte\dao\ReporteDAO.class
 com\innovaciones\reporte\model\Cliente.class
 com\innovaciones\reporte\model\DTO\ProductoDTO.class
+com\innovaciones\reporte\model\DTO\MantenimientoDTO.class
 com\innovaciones\reporte\service\ProductoModeloServiceImpl.class
 com\innovaciones\reporte\service\ProductoServiceImpl.class
 com\innovaciones\reporte\service\CabeceraEgresoService.class

@@ -21,8 +21,10 @@ public interface ReporteMantenimientoService {
 
     public ReporteMantenimiento update(ReporteMantenimiento reporteMantenimiento);
 
-     public void eliminar(ReporteMantenimiento reporteMantenimiento);
-     
+    public ReporteMantenimiento saveOrUpdate(ReporteMantenimiento reporteMantenimiento);
+
+    public void eliminar(ReporteMantenimiento reporteMantenimiento);
+
     public void removeReporteMantenimiento(ReporteMantenimiento reporteMantenimiento);
 
     public void addReporteMantenimientoCorrectivo(ProductoClienteReporte productoClienteReporte,

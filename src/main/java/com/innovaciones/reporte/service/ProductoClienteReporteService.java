@@ -20,7 +20,6 @@ public interface ProductoClienteReporteService {
 
     public ProductoClienteReporte update(ProductoClienteReporte productoClienteReporte);
 
- 
     public ProductoClienteReporte getByReportId(Integer ids);
 
     public ProductoClienteReporte getByUsuarioRuc(String ruc);
@@ -28,6 +27,6 @@ public interface ProductoClienteReporteService {
     public List<ProductoClienteReporte> getBySerial(String serial);
 
     public ProductoClienteReporte getByIdProductoCliente(Integer idProductoCliente);
-    
-     public List<ProductoClienteReporte> getByTipoReporte(String tipo);
+
+    public List<ProductoClienteReporte> getByTipoReporte(String tipo);
 }

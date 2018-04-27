@@ -45,13 +45,12 @@ public class ReporteMantenimientoServiceImpl extends Utilities implements Report
         return reporteMantenimiento;
     }
 
-    
     @Override
     @Transactional
     public void eliminar(ReporteMantenimiento reporteMantenimiento) {
-      
+
         reporteMantenimientoDAO.eliminar(reporteMantenimiento);
-        
+
     }
 
     @Override
@@ -243,6 +242,12 @@ public class ReporteMantenimientoServiceImpl extends Utilities implements Report
     @Transactional
     public List<ReporteMantenimiento> getReporteMantenimientoByDetalleCatalogoId(Integer id) {
         return reporteMantenimientoDAO.getReporteMantenimientoByDetalleCatalogoId(id);
+    }
+
+    @Override
+    public ReporteMantenimiento saveOrUpdate(ReporteMantenimiento reporteMantenimiento) {
+        return reporteMantenimientoDAO.saveOrUpdate(reporteMantenimiento);
+
     }
 
 }

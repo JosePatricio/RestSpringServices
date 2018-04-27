@@ -87,4 +87,10 @@ public class ReporteMantenimientoDAOImpl extends Utilities implements ReporteMan
                 .list();
     }
 
+    @Override
+    public ReporteMantenimiento saveOrUpdate(ReporteMantenimiento reporteMantenimiento) {
+        sessionFactory.getCurrentSession().saveOrUpdate(reporteMantenimiento);
+        return reporteMantenimiento;
+    }
+
 }

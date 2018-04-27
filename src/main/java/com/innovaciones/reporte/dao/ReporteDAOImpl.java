@@ -28,7 +28,7 @@ public class ReporteDAOImpl extends Utilities implements ReporteDAO, Serializabl
     @Override
     @Transactional
     public Reporte saveReporte(Reporte reporte) {
- Session session = sessionFactory.getCurrentSession().getSessionFactory().openSession();
+        Session session = sessionFactory.getCurrentSession().getSessionFactory().openSession();
 
         session.save(reporte);
 
@@ -39,7 +39,7 @@ public class ReporteDAOImpl extends Utilities implements ReporteDAO, Serializabl
     @Override
     @Transactional
     public Reporte updateReporte(Reporte reporte) {
-      
+
         sessionFactory.getCurrentSession().saveOrUpdate(reporte);
 
         return reporte;

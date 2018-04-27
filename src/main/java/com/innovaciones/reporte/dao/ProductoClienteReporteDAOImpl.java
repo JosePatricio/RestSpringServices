@@ -40,11 +40,8 @@ public class ProductoClienteReporteDAOImpl implements ProductoClienteReporteDAO,
         Session session = sessionFactory.getCurrentSession().getSessionFactory().openSession();
         Transaction t = session.beginTransaction();
 
-        String hql = "INSERT INTO producto_cliente_reporte (serie,atencion,departamento,ciudad,ip_equipo,puerto_usb,id_cliente_sucursal,id_producto,id_proyecto,"
-                + "id_reporte,id_cliente,id_producto_detalle_reporte)"
-                + " VALUES (:serie,:atencion,:departamento,:ciudad,:ipEquipo,:puertoUsb,:idClienteSucursal,:idProducto,:idProyecto,:idReporte,:idCliente"
-                + ",:idProductoDetalleReporte  )";
-        System.out.println("  ingresar  productoClienteReporte || " + productoClienteReporte);
+        String hql = "INSERT INTO producto_cliente_reporte (serie,atencion,departamento,ciudad,ip_equipo,puerto_usb,id_cliente_sucursal,id_producto,id_proyecto,id_reporte,correo_atencion,id_cliente,id_producto_detalle_reporte)"
+                + " VALUES (:serie,:atencion,:departamento,:ciudad,:ipEquipo,:puertoUsb,:idClienteSucursal,:idProducto,:idProyecto,:idReporte,:correoAtencion,:idCliente ,:idProductoDetalleReporte  )";
 
         Query query = session.createSQLQuery(hql);
         query.setParameter("serie", productoClienteReporte.getSerie());
@@ -57,8 +54,10 @@ public class ProductoClienteReporteDAOImpl implements ProductoClienteReporteDAO,
         query.setParameter("idProducto", productoClienteReporte.getIdProducto().getId());
         query.setParameter("idProyecto", productoClienteReporte.getIdProyecto().getId());
         query.setParameter("idReporte", productoClienteReporte.getIdReporte().getId());
+        query.setParameter("correoAtencion", productoClienteReporte.getCorreoAtencion());
         query.setParameter("idCliente", productoClienteReporte.getIdCliente().getId());
         query.setParameter("idProductoDetalleReporte", productoClienteReporte.getIdProductoDetalleReporte());
+
         int rr = query.executeUpdate();
         BigInteger result = (BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()")
                 .uniqueResult();
@@ -67,7 +66,6 @@ public class ProductoClienteReporteDAOImpl implements ProductoClienteReporteDAO,
         clienteReporte = productoClienteReporte;
         clienteReporte.setId(result.intValue());
         t.commit();
-        System.out.println("  ingresar  productoClienteReporte  " + clienteReporte);
         return clienteReporte;
     }
 
@@ -148,7 +146,7 @@ public class ProductoClienteReporteDAOImpl implements ProductoClienteReporteDAO,
     public List<ProductoClienteReporte> getByTipoReporte(String tipo) {
 
         return sessionFactory.getCurrentSession().
-                createQuery("p FROM ProductoClienteReporte p WHERE p.idReporte.tipo='" + tipo + "' ORDER BY p.idReporte.fechaCreacion DESC")
+                createQuery("from ProductoClienteReporte p WHERE p.idReporte.tipo='" + tipo + "' ORDER BY p.idReporte.fechaCreacion DESC")
                 .list();
     }
 

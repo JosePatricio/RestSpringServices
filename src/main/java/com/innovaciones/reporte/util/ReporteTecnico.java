@@ -5,20 +5,24 @@
  */
 package com.innovaciones.reporte.util;
 
+import com.innovaciones.reporte.model.DTO.MantenimientoDTO;
 import com.innovaciones.reporte.model.DetalleCatalogoReporte;
 import com.innovaciones.reporte.model.ProductoClienteReporte;
+import com.innovaciones.reporte.model.ReporteGenericoItems;
 import com.innovaciones.reporte.model.TipoVisita;
 import com.innovaciones.reporte.service.CabeceraCatalogoReporteService;
 import com.innovaciones.reporte.service.DetalleCatalogoReporteService;
 import com.innovaciones.reporte.service.ParametrosService;
 import com.innovaciones.reporte.service.TipoVisitaService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedProperty;
 import lombok.Getter;
 import lombok.Setter;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  *
@@ -45,6 +49,7 @@ public class ReporteTecnico extends Utilities implements Serializable {
     private final static String REPORTE_TRITURADORAS_PATH = "/reports/reporte_trituradora.jasper";
     private final static String REPORTE_CUBO_ANVERSO_PATH = "/reports/reporte_cubo_anverso.jasper";
     private final static String REPORTE_CUBO_REVERSO_PATH = "/reports/reporte_cubo_reverso.jasper";
+    private final static String REPORTE_TECNICO_GENERICO_PATH = "/reports/reporte_generico.jasper";
 
     private final static String SELECCIONAR = "X";
 
@@ -110,10 +115,33 @@ public class ReporteTecnico extends Utilities implements Serializable {
             TipoVisitaService tipoVisitaService, DetalleCatalogoReporteService detalleCatalogoReporteService,
             CabeceraCatalogoReporteService cabeceraCatalogoReporteService) {
 
+        /*  Map<String, Object> */
         Map<String, Object> parametros = loadParametersReporteBytes(productoClienteReporte, tipoVisitaService,
-                detalleCatalogoReporteService, cabeceraCatalogoReporteService);
+                detalleCatalogoReporteService, cabeceraCatalogoReporteService);;
 
-        return jasperBytes(parametros, REPORTE_TECNICO_PATH);
+        String path = "";
+
+        if (productoClienteReporte.getIdReporte().getTipo().equals(Enums.TIPO_REPORTE_DIAGNOSTICO.getValue())) {
+
+            path = REPORTE_TECNICO_PATH;
+        }
+
+        if (productoClienteReporte.getIdReporte().getTipo().equals(Enums.TIPO_REPORTE_REPARACION.getValue())) {
+
+            path = REPORTE_TECNICO_PATH;
+        }
+
+        if (productoClienteReporte.getIdReporte().getTipo().equals(Enums.TIPO_REPORTE_CONTADORES.getValue())) {
+
+            path = REPORTE_TECNICO_PATH;
+        }
+
+        if (productoClienteReporte.getIdReporte().getTipo().equals(Enums.TIPO_REPORTE_GENERICO.getValue())) {
+
+            path = REPORTE_TECNICO_GENERICO_PATH;
+        }
+        
+        return jasperBytes(parametros, path);
     }
 
     public static Map<String, Object> loadParametersReporteBytes(ProductoClienteReporte productoClienteReporte,
@@ -207,74 +235,86 @@ public class ReporteTecnico extends Utilities implements Serializable {
             parametros.put("telefono_equipo", productoClienteReporte.getIdClienteSucursal().getTelefonoContacto());
             parametros.put("mail_equipo", productoClienteReporte.getIdClienteSucursal().getCelularContacto());
 
+            System.out.println(" SETEAR CONTADORES  .....  ");
             //DATOS DE CONTADORES
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalAnterior() != null) {
-                parametros.put("contador_total_anterior", productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalAnterior());
+                parametros.put("contador_total_anterior", productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalAnterior().toString());
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorColorAnterior() != null) {
-                parametros.put("contador_color_anterior", productoClienteReporte.getIdProductoDetalleReporte().getContadorColorAnterior());
+                parametros.put("contador_color_anterior", productoClienteReporte.getIdProductoDetalleReporte().getContadorColorAnterior().toString());
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorBnAnterior() != null) {
-                parametros.put("contador_bn_anterior", productoClienteReporte.getIdProductoDetalleReporte().getContadorBnAnterior());
+                parametros.put("contador_bn_anterior", productoClienteReporte.getIdProductoDetalleReporte().getContadorBnAnterior().toString());
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalActual() != null) {
-                parametros.put("contador_total_actual", productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalActual());
+                parametros.put("contador_total_actual", productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalActual().toString());
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorColorActual() != null) {
-                parametros.put("contador_color_actual", productoClienteReporte.getIdProductoDetalleReporte().getContadorColorActual());
+                parametros.put("contador_color_actual", productoClienteReporte.getIdProductoDetalleReporte().getContadorColorActual().toString());
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorBnActual() != null) {
-                parametros.put("contador_bn_actual", productoClienteReporte.getIdProductoDetalleReporte().getContadorBnActual());
+                parametros.put("contador_bn_actual", productoClienteReporte.getIdProductoDetalleReporte().getContadorBnActual().toString());
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalImpReal() != null) {
-                parametros.put("contador_total_real", productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalImpReal());
+                parametros.put("contador_total_real", productoClienteReporte.getIdProductoDetalleReporte().getContadorTotalImpReal().toString());
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorColorImpReal() != null) {
-                parametros.put("contador_color_real", productoClienteReporte.getIdProductoDetalleReporte().getContadorColorImpReal());
+                parametros.put("contador_color_real", productoClienteReporte.getIdProductoDetalleReporte().getContadorColorImpReal().toString());
 
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getContadorBnImpReal() != null) {
-                parametros.put("contador_bn_real", productoClienteReporte.getIdProductoDetalleReporte().getContadorBnImpReal());
+                parametros.put("contador_bn_real", productoClienteReporte.getIdProductoDetalleReporte().getContadorBnImpReal().toString());
 
             }
 
             if (productoClienteReporte.getIdProductoDetalleReporte().getMantenimiento() != null) {
-                parametros.put("mantenimiento", productoClienteReporte.getIdProductoDetalleReporte().getMantenimiento());
+                parametros.put("mantenimiento", productoClienteReporte.getIdProductoDetalleReporte().getMantenimiento().toString());
 
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getOtros() != null) {
-                parametros.put("otros", productoClienteReporte.getIdProductoDetalleReporte().getOtros());
+                parametros.put("otros", productoClienteReporte.getIdProductoDetalleReporte().getOtros().toString());
 
             }
+
             if (productoClienteReporte.getIdProductoDetalleReporte().getServicioFacturar() != null) {
-                parametros.put("servicio_facturar", productoClienteReporte.getIdProductoDetalleReporte().getServicioFacturar().doubleValue());
+                parametros.put("servicio_facturar", productoClienteReporte.getIdProductoDetalleReporte().getServicioFacturar().toString());
             }
             if (productoClienteReporte.getIdProductoDetalleReporte().getServicioFacturarEstado() != null && productoClienteReporte.getIdProductoDetalleReporte().getServicioFacturarEstado()) {
                 parametros.put("servicio_facturar_estado", SELECCIONAR);
             }
+            System.out.println("  CONTADORES SETEADO   ");
+
             parametros.put("sintomas", productoClienteReporte.getIdReporte().getSintomasEquipo());
             parametros.put("observacion", productoClienteReporte.getIdReporte().getObservacionMantenimiento());
             parametros.put("observaciones_recomendaciones", productoClienteReporte.getIdReporte().getObservacionesRecomendaciones());
 
-            parametros.put("hora_inicio", fomatearHora(productoClienteReporte.getIdReporte().getHoraInicio()));
-            parametros.put("hora_finalizacion", fomatearHora(productoClienteReporte.getIdReporte().getHoraFin()));
+            try {
+                
+            } catch (Exception e) {
+            }
+            
+            
+            // parametros.put("hora_inicio", fomatearHora(productoClienteReporte.getIdReporte().getHoraInicio()));
+            //  parametros.put("hora_finalizacion", fomatearHora(productoClienteReporte.getIdReporte().getHoraFin()));
             parametros.put("nombre_tecnico", productoClienteReporte.getIdReporte().getIdUsuario().getNombreCompleto());
             parametros.put("nombre_cliente", productoClienteReporte.getIdReporte().getNombreCliente());
 
-            if (productoClienteReporte.getIdReporte().getSubtipo().startsWith(Enums.TIPO_REPORTE_DIAGNOSTICO.getValue())) {
+            System.out.println(" TIPO IF " + productoClienteReporte.getIdReporte().getTipo());
+
+            if (productoClienteReporte.getIdReporte().getTipo().equals(Enums.TIPO_REPORTE_DIAGNOSTICO.getValue())) {
                 parametros.putAll(loadParametersReportesRepuestosByte(productoClienteReporte, detalleCatalogoReporteService, cabeceraCatalogoReporteService));
             }
 
-            if (productoClienteReporte.getIdReporte().getSubtipo().startsWith(Enums.TIPO_REPORTE_REPARACION.getValue())) {
+            if (productoClienteReporte.getIdReporte().getTipo().equals(Enums.TIPO_REPORTE_REPARACION.getValue())) {
                 parametros.putAll(loadParametersReportesRepuestosByte(productoClienteReporte, detalleCatalogoReporteService, cabeceraCatalogoReporteService));
             }
 
-            if (productoClienteReporte.getIdReporte().getSubtipo().startsWith(Enums.TIPO_REPORTE_CONTADORES.getValue())) {
+            if (productoClienteReporte.getIdReporte().getTipo().equals(Enums.TIPO_REPORTE_CONTADORES.getValue())) {
                 parametros.putAll(loadParametersReportesRepuestosByte(productoClienteReporte, detalleCatalogoReporteService, cabeceraCatalogoReporteService));
             }
 
-            if (productoClienteReporte.getIdReporte().getSubtipo().startsWith(Enums.TIPO_REPORTE_GENERICO.getValue())) {
-                parametros.putAll(loadParametersReportesRepuestosByte(productoClienteReporte, detalleCatalogoReporteService, cabeceraCatalogoReporteService));
+            if (productoClienteReporte.getIdReporte().getTipo().equals(Enums.TIPO_REPORTE_GENERICO.getValue())) {
+                parametros.putAll(loadParametersReporteGenerico(productoClienteReporte));
             }
 
         } catch (Exception e) {
@@ -282,12 +322,57 @@ public class ReporteTecnico extends Utilities implements Serializable {
             e.getStackTrace();
         }
 
+        
         return parametros;
 
     }
 
+    public static Map<String, Object> loadParametersReporteGenerico(ProductoClienteReporte productoClienteReporte) {
+        Map<String, Object> parametros = new HashMap();
+        parametros.put("lbl_cont_anterior", productoClienteReporte.getIdProductoDetalleReporte().getEtiquetaAnterior());
+        parametros.put("lbl_cont_actual", productoClienteReporte.getIdProductoDetalleReporte().getEtiquetaActual());
+        parametros.put("lbl_cont_real", productoClienteReporte.getIdProductoDetalleReporte().getEtiquetaImpresionReal());
+
+        parametros.put("lbl_cont_total", productoClienteReporte.getIdProductoDetalleReporte().getEtiquetaContadorTotal());
+        parametros.put("lbl_cont_color", productoClienteReporte.getIdProductoDetalleReporte().getEtiquetaContadorColor());
+        parametros.put("lbl_cont_bn", productoClienteReporte.getIdProductoDetalleReporte().getEtiquetaContadorBn());
+
+        parametros.put("lbl_sintomas", productoClienteReporte.getIdReporte().getEtiquetaSintomasEquipo());
+
+        List<MantenimientoDTO> mantenimientosPreventivos = new ArrayList<>();
+        List<MantenimientoDTO> mantenimientosCorrectivos = new ArrayList<>();
+
+        MantenimientoDTO mantenimiento = null;
+        for (ReporteGenericoItems item : productoClienteReporte.getReporteGenericoItemsList()) {
+
+            mantenimiento = new MantenimientoDTO();
+
+            mantenimiento.setDescripcion(item.getDescripcion());
+
+            if (item.getTipo().charValue() == 'P') {
+                mantenimiento.setCodigo("");
+                mantenimiento.setValor1(true);
+                mantenimientosPreventivos.add(mantenimiento);
+            } else {
+                mantenimiento.setValor1(item.getCambiado());
+                mantenimiento.setValor2(item.getSolicitar());
+                mantenimiento.setCodigo(item.getCodigoRepuesto());
+                mantenimientosCorrectivos.add(mantenimiento);
+            }
+
+        }
+
+        JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(mantenimientosPreventivos);
+
+        JRBeanCollectionDataSource itemsJRBean2 = new JRBeanCollectionDataSource(mantenimientosCorrectivos);
+
+        parametros.put("ItemDataSource", itemsJRBean);
+        parametros.put("ItemDataSource2", itemsJRBean2);
+        return parametros;
+    }
+
     
-     
+    
     public static Map<String, Object> loadParametersReportesRepuestosByte(ProductoClienteReporte productoClienteReporte,
             DetalleCatalogoReporteService detalleCatalogoReporteService,
             CabeceraCatalogoReporteService cabeceraCatalogoReporteService) {

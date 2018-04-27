@@ -225,6 +225,7 @@ C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\serviceRe
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\ProductoDetalleReporteDAO.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\serviceRest\ClienteServiceRest.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\ReporteMantenimientoService.java
+C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\DTO\MantenimientoDTO.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\model\DTO\RutasDTO.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\service\DetalleReporteEcu911Service.java
 C:\PROYECTOS\RestSpringServices\src\main\java\com\innovaciones\reporte\dao\DetalleCicloDAO.java

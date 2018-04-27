@@ -864,13 +864,12 @@ public class Utilities implements Serializable {
                 contentMultipart.addBodyPart(textPart);
                 // contentMultipart.addBodyPart(putLogoInsideEmail(cid)); // ERRORRRRR
 
-               /* try {
+                /* try {
                     contentMultipart.addBodyPart(putLogoInsideEmail(cid));
                     System.out.println("  " + putLogoInsideEmail(cid));
                 } catch (IOException | MessagingException e) {
                     System.out.println("fallo al poner imagen en mail  " + e.getMessage());
                 }*/
-
                 contentMultipart.addBodyPart(pdfBodyPart);
                 mimeMessage.setContent(contentMultipart);
                 Transport.send(mimeMessage);
@@ -1204,7 +1203,7 @@ public class Utilities implements Serializable {
             JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
             return baos.toByteArray();
         } catch (JRException e) {
-            System.out.println("Error enviarMailPdf: " + e.getMessage());
+            System.out.println("Error jasperBytes: " + e.getMessage());
 
         }
         return null;

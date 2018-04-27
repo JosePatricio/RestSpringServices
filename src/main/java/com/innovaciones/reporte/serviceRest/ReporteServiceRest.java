@@ -5,8 +5,6 @@
  */
 package com.innovaciones.reporte.serviceRest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.innovaciones.reporte.model.DTO.DatosReporteDTO;
 import com.innovaciones.reporte.model.DTO.ReportesDTO;
 import com.innovaciones.reporte.model.ProductoClienteReporte;
@@ -18,8 +16,6 @@ import com.innovaciones.reporte.service.ProductoService;
 import com.innovaciones.reporte.service.ReporteService;
 import com.innovaciones.reporte.util.Utilities;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +63,7 @@ public class ReporteServiceRest extends Utilities {
     public ResponseEntity<Void> saveAllReporteImpresoras(@RequestBody DatosReporteDTO datosReporteDTO, UriComponentsBuilder ucBuilder) {
         HttpHeaders hd = new HttpHeaders();
 
+        System.out.println(" entrar  saveAllReporteImpresoras");
         reporteService.saveAllReporteImpresoras(datosReporteDTO);
         hd.add("Access-Control-Allow-Origin", "*");
         hd.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
@@ -124,9 +121,10 @@ public class ReporteServiceRest extends Utilities {
     }
 
     @RequestMapping(value = "/getByTipoReporte/{tipo}", method = RequestMethod.GET, produces = "application/json")
-    //@CrossOrigin(origins = "*")
-    public ResponseEntity<List<ProductoClienteReporte>> getByTipoReporte(@PathVariable("subTipo") String tipo) {
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<List<ProductoClienteReporte>> getByTipoReporte(@PathVariable("tipo") String tipo) {
         HttpHeaders hd = new HttpHeaders();
+        System.out.println(" el tipo es  " + tipo);
         return new ResponseEntity<List<ProductoClienteReporte>>(productoClienteReporteService.getByTipoReporte(tipo), headers(), HttpStatus.OK);
     }
 

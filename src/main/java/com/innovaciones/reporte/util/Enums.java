@@ -150,7 +150,9 @@ public enum Enums {
     MAIL_PASS("MAIL_PASS", "MAIL_PASS"),
     MAIL_SMTP_HOST("MAIL_SMTP_HOST", "MAIL_SMTP_HOST"),
     MAIL_SMTP_PORT("MAIL_SMTP_PORT", "MAIL_SMTP_PORT"),
-    MAIL_STATUS("MAIL_STATUS", "MAIL_STATUS");
+    MAIL_STATUS("MAIL_STATUS", "MAIL_STATUS"),
+    MANTENIMIENTO_PREVENTIVO("MANTENIMIENTO_PREVENTIVO", "P"),
+    MANTENIMIENTO_CORRECTIVO("MANTENIMIENTO_CORERCTIVO", "C");
 
     private final String propertyName; //Nombre del estado (propiedad)
     private final String value; // Valor del estado

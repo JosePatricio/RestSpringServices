@@ -69,6 +69,18 @@ public class ProductoDetalleReporte implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "idProductoDetalleReporte")
     private List<ProductoClienteReporte> productoClienteReporteList;
+    @Column(name = "etiqueta_anterior")
+    private String etiquetaAnterior;
+    @Column(name = "etiqueta_actual")
+    private String etiquetaActual;
+    @Column(name = "etiqueta_impresion_real")
+    private String etiquetaImpresionReal;
+    @Column(name = "etiqueta_contador_total")
+    private String etiquetaContadorTotal;
+    @Column(name = "etiqueta_contador_color")
+    private String etiquetaContadorColor;
+    @Column(name = "etiqueta_contador_bn")
+    private String etiquetaContadorBn;
 
     public ProductoDetalleReporte() {
     }
@@ -95,6 +107,54 @@ public class ProductoDetalleReporte implements Serializable {
 
     public Integer getContadorColorAnterior() {
         return contadorColorAnterior;
+    }
+
+    public String getEtiquetaAnterior() {
+        return etiquetaAnterior;
+    }
+
+    public void setEtiquetaAnterior(String etiquetaAnterior) {
+        this.etiquetaAnterior = etiquetaAnterior;
+    }
+
+    public String getEtiquetaActual() {
+        return etiquetaActual;
+    }
+
+    public void setEtiquetaActual(String etiquetaActual) {
+        this.etiquetaActual = etiquetaActual;
+    }
+
+    public String getEtiquetaImpresionReal() {
+        return etiquetaImpresionReal;
+    }
+
+    public void setEtiquetaImpresionReal(String etiquetaImpresionReal) {
+        this.etiquetaImpresionReal = etiquetaImpresionReal;
+    }
+
+    public String getEtiquetaContadorTotal() {
+        return etiquetaContadorTotal;
+    }
+
+    public void setEtiquetaContadorTotal(String etiquetaContadorTotal) {
+        this.etiquetaContadorTotal = etiquetaContadorTotal;
+    }
+
+    public String getEtiquetaContadorColor() {
+        return etiquetaContadorColor;
+    }
+
+    public void setEtiquetaContadorColor(String etiquetaContadorColor) {
+        this.etiquetaContadorColor = etiquetaContadorColor;
+    }
+
+    public String getEtiquetaContadorBn() {
+        return etiquetaContadorBn;
+    }
+
+    public void setEtiquetaContadorBn(String etiquetaContadorBn) {
+        this.etiquetaContadorBn = etiquetaContadorBn;
     }
 
     public void setContadorColorAnterior(Integer contadorColorAnterior) {

@@ -17,7 +17,6 @@ import com.innovaciones.reporte.model.Producto;
 import com.innovaciones.reporte.model.ProductoClienteReporte;
 import com.innovaciones.reporte.model.ProductoDetalleReporte;
 import com.innovaciones.reporte.model.Reporte;
-import com.innovaciones.reporte.model.ReporteGenericoItems;
 import com.innovaciones.reporte.model.Usuarios;
 import java.util.List;
 
@@ -58,6 +57,15 @@ public interface ReporteService {
             Integer idClienteSucursal2, DetalleReporteInstalacionNueva detalleReporteInstalacionNueva, DetalleReporteTemporal detalleReporteTemporal,
             Usuarios usuarios, AsignacionReparacion asignacionReparacion,
             List<DetalleCatalogoReporte> listPreguntas);
+
+    public void saveAllReporteMobile(Reporte reporte, Cliente cliente, Producto producto, String serie,
+            ProductoDetalleReporte productoDetalleReporte, ProductoClienteReporte productoClienteReporte, Integer idClienteSucursal, Integer idTipoVisita,
+            Usuarios usuarios, AsignacionReparacion asignacionReparacion, Integer idProyecto, List<List<DetalleCatalogoReporte>> listCorrectivos,
+            List<List<DetalleCatalogoReporte>> listPreventivos, List<DetalleCatalogoReporte> listOtros);
+
+    public void updateAllReporteMobile(Reporte reporte, Cliente cliente, Producto producto, DetalleInventarioProducto detalleInventarioProducto,
+            ProductoDetalleReporte productoDetalleReporte, ProductoClienteReporte productoClienteReporte, Integer idClienteSucursal, Integer idTipoVisita, Integer idProyecto,
+            Usuarios usuarios, List<List<DetalleCatalogoReporte>> listCorrectivos, List<List<DetalleCatalogoReporte>> listPreventivos, List<DetalleCatalogoReporte> listOtros);
 
     public void updateAllInstalacion(String tipoInstalacion, Reporte reporte, Cliente cliente, Producto producto, Producto producto2, DetalleInventarioProducto detalleInventarioProducto1, DetalleInventarioProducto detalleInventarioProducto2,
             ProductoDetalleReporte productoDetalleReporte, ProductoClienteReporte productoClienteReporte, Integer idClienteSucursal, Integer idClienteSucursal2, Integer idProyecto,
